@@ -1,6 +1,6 @@
 fishBaord
 ==========
-1. 추가 설정
+# 추가 설정
 ----------
 ## mysql 추가
 1. 데이터 베이스 생성 
@@ -8,20 +8,20 @@ fishBaord
  Query OK, 1 row affected (0.00 sec)
 
 2. application.properties 내용 추가
- spring.datasource.driver-class-name=com.mysql.jdbc.Driver
- spring.datasource.url=jdbc:mysql://localhost:3306/board_ex?useSSL=false
- spring.datasource.username=root
- spring.datasource.password=
+   spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+   spring.datasource.url=jdbc:mysql://localhost:3306/board_ex?useSSL=false
+   spring.datasource.username=root
+   spring.datasource.password=
 
- spring.jpa.hibernate.ddl-auto=update
- spring.jpa.generate-ddl=true
- spring.jpa.show-sql=true
- spring.jpa.database=mysql
- spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.generate-ddl=true
+   spring.jpa.show-sql=true
+   spring.jpa.database=mysql
+   spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect
 
- spring.thymeleaf.cache=false
+   spring.thymeleaf.cache=false
 
- logging.level.org.hibernate=info
+   logging.level.org.hibernate=info
 
 3. pom.xml 추가
  <dependency>
@@ -30,4 +30,8 @@ fishBaord
             <scope>runtime</scope>
  </dependency>
 
+## 레이아웃 추가
+1. resources/templates/layout 폴더밑에 레이아웃 파일들을 저장하자.
+
+2. 부트 스트랩 추가.
 
