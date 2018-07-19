@@ -4,12 +4,12 @@ fishBaord
 ----------
 ## mysql 추가
 1. 데이터 베이스 생성 
- >mysql> create database fish_board;
- >Query OK, 1 row affected (0.00 sec)
+ mysql> create database fish_board;
+ Query OK, 1 row affected (0.00 sec)
 
 2. application.properties 내용 추가
    spring.datasource.driver-class-name=com.mysql.jdbc.Driver
-   spring.datasource.url=jdbc:mysql://localhost:3306/fish_board?useSSL=false
+   spring.datasource.url=jdbc:mysql://localhost:3306/board_ex?useSSL=false
    spring.datasource.username=root
    spring.datasource.password=
 
@@ -24,64 +24,58 @@ fishBaord
    logging.level.org.hibernate=info
 
 3. pom.xml 추가
-    <dependency>
+ <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
-    </dependency>
-
-4. Querydsl 설정
-    pom.xml에 추가 하자. 
-            <dependency>
-    			<groupId>com.querydsl</groupId>
-    			<artifactId>querydsl-apt</artifactId>
-    			<scope>provided</scope>
-    		</dependency>
-    
-    		<dependency>
-    			<groupId>com.querydsl</groupId>
-    			<artifactId>querydsl-jpa</artifactId>
-    		</dependency>
-    		
+ </dependency>
 
 ## 레이아웃 추가
 1. resources/templates/layout 폴더밑에 레이아웃 파일들을 저장하자.
 
 2. 부트 스트랩 추가.
 
-3. layout 작성
+## 타임리프
+1. th:with="지역변수명 = '값''"
+ - 지역변수를 작성.
+ - 특정 범위에서만 유효한 지역변수를 선언할 떄 사용.
+ >     
+     <div class="panel-body">
+          <p>[[${result}]]</p>
+          <div th:with="result=${result.result}">
+              <ul class="list-group">
+                  <li class="list-group-item" th:each="board:${result.content}">[[${board}]]}</li>
+              </ul>
+          </div>
+      </div>
+      
+2. 하단 숫자 표시
+ > 
+        <nav>
+             <div>
+                 <ul class="pagination">
+                     <li th:each="p:${result.pageList}">
+                     <a href="#">[[${p.pageNumber}+1]]</a></li>
+                 </ul>
+             </div>
+        </nav>
 
-## 컨트롤러 작성
-1. FishBoardController.java 작성
+3. '이전', '다음' 페이지는  th:if로 검사해준다.
 
-## 도메인 작성
-1. FishBoard.java 생성
+4. 검색조건
+  - '/boards/list?type=t&keyword=5' 로 파라미터가 왔을때 컨트롤러에서 처리해준다.
+  - @ModelAttribute로 받아서 처리한다. 
+  - 위 주소로 request 보내면 @ModelAttribute로 담은 객체의 생성자가 실행된다.
+  - $("#searchBtn").click(function(e) : 버튼 id가 searchBtn으로 주엇졋을떄 javascript 처리 부분
+  - formObj.find("[name='page']").val("1"); // 폼에서 name='page'가 있는 부분 찾아서 값을 1로 세팅
 
-## Querydsl 설정
-1. pom.xml 설정
 
-2. Qdomain 생성
-  - pom.xml에 추가
-  --------------------
-    <plugin>
-                  <groupId>com.mysema.maven</groupId>
-                  <artifactId>apt-maven-plugin</artifactId>
-                  <version>1.1.3</version>
-                  <executions>
-                      <execution>
-                          <goals>
-                              <goal>process</goal>
-                          </goals>
-                          <configuration>
-                              <outputDirectory>target/generated-sources/java</outputDirectory>
-                              <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
-                          </configuration>
-                      </execution>
-                  </executions>
-    </plugin>
-    
-    
-## 테스트 코드 작성
-1. 게시글 더미 데이터 삽입 테스트
- - @Test
-   public void insertBoards()
+## 페이지 처리
+1. @PageableDefault로 처리하는 경우도 있지만 보안상 노출이 된다.
+
+2. 그래서  Value Object를 생성하는 방식으로 작성한다. 
+
+3. QuerydslPredicateExecutor<>를 상속 받아 검색 조건 및 페이징 처리를 한다. 
+
+4. vo.PageMaker에서 페이지 숫자 표시를 처리.
+ 
