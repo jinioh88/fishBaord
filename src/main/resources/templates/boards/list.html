@@ -4,7 +4,7 @@
 
 <div layout:fragment="content">
 
-    <div class="panel-heading">List Page</div>
+    <div class="panel-heading">배스낚시 게시판</div>
 
     <div class="panel-body pull-right">
         <h3><a class="label label-default " th:href="@{register}">Register</a></h3>
@@ -17,10 +17,10 @@
                    id="dataTables-example">
                 <thead>
                 <tr>
-                    <th>BNO</th>
-                    <th>TITLE</th>
-                    <th>WRITER</th>
-                    <th>REGDATE</th>
+                    <th>글번호</th>
+                    <th>제목</th>
+                    <th>글쓴이</th>
+                    <th>등록일</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +32,18 @@
                 </tr>
                 </tbody>
             </table>
+
+            <div>
+                <!--테스트 후 지역, 낚시터 추가-->
+                <select id="searchType">
+                    <option>--</option>
+                    <option value="t" th:selected="${pageVO.type}=='t'">제목</option>
+                    <option value="t" th:selected="${pageVO.type}=='c'">내용</option>
+                    <option value="t" th:selected="${pageVO.type}=='w'">작성자</option>
+                </select>
+                <input type="text" id="searchKeyword" th:value="${pageVO.keyword}">
+                <button id="searchBtn">검색</button>
+            </div>
         </div>
 
         <nav>
@@ -57,6 +69,8 @@
     <form id='f1' th:action="@{list}" method="get">
         <input type='hidden' name='page' th:value=${result.currentPageNum}>
         <input type='hidden' name='size' th:value=${result.currentPage.pageSize}>
+        <input type='hidden' name='type' th:value=${pageVO.type}>
+        <input type='hidden' name='keyword' th:value=${pageVO.keyword}>
     </form>
 
 
@@ -71,6 +85,19 @@
                 e.preventDefault();
                 formObj.find('[name="page"]').val($(this).attr('href'));
                 formObj.submit();
+            });
+
+            $("#searchBtn").click(function(e){
+                e.preventDefault();
+
+                var typeStr = $("#searchType").find(":selected").val();
+                var keywordStr = $("#searchKeyword").val();
+                console.log(typeStr,"",keywordStr);
+
+                formObj.find("[name='type']").val(typeStr);
+                formObj.find("[name='keyword']").val(keywordStr);
+                formObj.find("[name='page']").val("1");
+                formObj.submit()
             });
         });
     </script>

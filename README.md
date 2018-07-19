@@ -62,6 +62,13 @@ fishBaord
 
 3. '이전', '다음' 페이지는  th:if로 검사해준다.
 
+4. 검색조건
+  - '/boards/list?type=t&keyword=5' 로 파라미터가 왔을때 컨트롤러에서 처리해준다.
+  - @ModelAttribute로 받아서 처리한다. 
+  - 위 주소로 request 보내면 @ModelAttribute로 담은 객체의 생성자가 실행된다.
+  - $("#searchBtn").click(function(e) : 버튼 id가 searchBtn으로 주엇졋을떄 javascript 처리 부분
+  - formObj.find("[name='page']").val("1"); // 폼에서 name='page'가 있는 부분 찾아서 값을 1로 세팅
+
 
 ## 페이지 처리
 1. @PageableDefault로 처리하는 경우도 있지만 보안상 노출이 된다.
