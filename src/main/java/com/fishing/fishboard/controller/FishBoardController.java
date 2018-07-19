@@ -2,6 +2,7 @@ package com.fishing.fishboard.controller;
 
 import com.fishing.fishboard.domain.FishBoard;
 import com.fishing.fishboard.persistence.FishBoardRepository;
+import com.fishing.fishboard.vo.PageMaker;
 import com.fishing.fishboard.vo.PageVO;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,8 @@ public class FishBoardController {
         Page<FishBoard> result = repository.findAll(repository.makePredicate(null,null),page);
         log.info(""+page);
         log.info(""+result);
+        log.info("Total page number : "+result.getTotalPages());
 
-        model.addAttribute("result",result);
+        model.addAttribute("result",new PageMaker(result));
     }
 }
