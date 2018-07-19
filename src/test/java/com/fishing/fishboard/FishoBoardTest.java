@@ -7,6 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -29,6 +33,17 @@ public class FishoBoardTest {
             board.setWriter("강태공"+(n%7));
 
             repository.save(board);
+        });
+    }
+
+    @Test
+    public void testList() {
+        Pageable pageable = PageRequest.of(0,20,Sort.Direction.DESC,"bno");
+        Page<FishBoard> result = repository.findAll(repository.makePredicate(null,null),pageable);
+        log.info("page : "+result.getPageable());
+        log.info("------");
+        result.getContent().forEach(board->{
+            log.info(""+board);
         });
     }
 }
