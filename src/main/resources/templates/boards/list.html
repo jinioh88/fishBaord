@@ -86,6 +86,19 @@
                 formObj.find('[name="page"]').val($(this).attr('href'));
                 formObj.submit();
             });
+
+            $("#searchBtn").click(function(e){
+                e.preventDefault();
+
+                var typeStr = $("#searchType").find(":selected").val();
+                var keywordStr = $("#searchKeyword").val();
+                console.log(typeStr,"",keywordStr);
+
+                formObj.find("[name='type']").val(typeStr);
+                formObj.find("[name='keyword']").val(keywordStr);
+                formObj.find("[name='page']").val("1");
+                formObj.submit()
+            });
         });
     </script>
 
