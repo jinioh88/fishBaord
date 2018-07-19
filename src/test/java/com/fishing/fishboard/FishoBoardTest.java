@@ -46,4 +46,15 @@ public class FishoBoardTest {
             log.info(""+board);
         });
     }
+
+    @Test
+    public void testList2() {
+        Pageable pageable = PageRequest.of(0,10,Sort.Direction.DESC,"bno");
+        Page<FishBoard> result = repository.findAll(repository.makePredicate("t","10"),pageable);
+        log.info("page : "+result.getPageable());
+        log.info("------");
+        result.getContent().forEach(board->{
+            log.info(""+board);
+        });
+    }
 }

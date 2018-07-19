@@ -13,6 +13,22 @@ public interface FishBoardRepository extends CrudRepository<FishBoard,Long>, Que
         QFishBoard board = QFishBoard.fishBoard;
         builder.and(board.bno.gt(0));
 
+        if(type==null) {
+            return builder;
+        }
+
+        switch(type) {
+            case "t":
+                builder.and(board.title.like("%"+keyword+"%"));
+                break;
+            case "c":
+                builder.and(board.content.like("%"+keyword+"%"));
+                break;
+            case "w":
+                builder.and(board.writer.like("%"+keyword+"%"));
+                break;
+        }
+
         return builder;
     }
 }
