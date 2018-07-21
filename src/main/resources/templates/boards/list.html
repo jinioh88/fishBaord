@@ -7,7 +7,7 @@
     <div class="panel-heading">배스낚시 게시판</div>
 
     <div class="panel-body pull-right">
-        <h3><a class="label label-default " th:href="@{register}">Register</a></h3>
+        <h3><a class="label label-default " th:href="@{register}">글쓰기</a></h3>
     </div>
 
     <div class="panel-body">
@@ -98,6 +98,15 @@
                 formObj.find("[name='keyword']").val(keywordStr);
                 formObj.find("[name='page']").val("1");
                 formObj.submit()
+            });
+
+            $(".boardLink").click(function (e) {
+               e.preventDefault();
+               var boardNo = $(this).attr("href");
+
+               formObj.attr("action",[[@{'/boards/view'}]]);
+               formObj.append("<input type='hidden' name = 'bno' value='"+boardNo+"'>");
+               formObj.submit();
             });
         });
     </script>

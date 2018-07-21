@@ -57,4 +57,10 @@ public class FishBoardController {
 
         return "redirect:/boards/list";
     }
+
+    @GetMapping("/view")
+    public void view(Long bno, @ModelAttribute("pageVO")PageVO vo, Model model) {
+        log.info("BNO: "+bno);
+        repository.findById(bno).ifPresent(board -> model.addAttribute("vo",board));
+    }
 }
