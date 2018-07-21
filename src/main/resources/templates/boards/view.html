@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/layout1}">
+
+<div layout:fragment="content">
+    <div class="panel-heading">자유 게시판</div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label>글번호</label> <input class="form-control" name="bno" th:value="${vo.bno}" readonly="readonly"/>
+            <p class="help-block">제목을 입력하세요.</p>
+        </div>
+        <div class="form-group">
+            <label>제목</label> <input class="form-control" name="title" th:value="${vo.title}" readonly="readonly"/>
+            <p class="help-block">제목을 입력하세요.</p>
+        </div>
+        <div class="form-group">
+            <label>내용</label>
+            <textarea class="form-control" rows="3" name="content" th:text="${vo.content}" readonly="readonly"></textarea>
+        </div>
+        <div class="form-group">
+            <label>글쓴이</label>
+            <input class="form-control" name="writer" th:value="${vo.writer}" readonly="readonly"></input>
+        </div>
+        <div class="form-group">
+            <label>등록일</label> <input class="form-control" name="regDate" th:value="${#dates.format(vo.regdate,'yyyy-MM-dd')}"
+                                      readonly="readonly"/>
+        </div>
+    </div>
+</div>
+
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+
+    </script>
+</th:block>
+</html>
