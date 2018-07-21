@@ -98,6 +98,57 @@ fishBaord
         
 -----
 
+## 게시물 조회
+1. 게시물 조회는 다름 경우를 고려하자.
+  - 검색 조건이 없는경우 조회 : 페이지 번호 유지
+  - 검색 조건이 있는 경우 조회 : 페이지 번호 + 검색 조건 유지
+  - <form>태그로 사용자가 다시 원래의 리스트 화면으로 이동할 수 있는 링크를 제공하자.
+  - <td><a th:href='${board.bno}' class='boardLink'>[[${board.title}]]</a></td>
+  - 위에서 class='boardLink'는 javascript에서 사용하려고 쓴 것이다.
+  - javascript 부분에서 $(".boardLink").click(function(e)){...})
+>  $(".boardLink").click(function (e) {
+                 e.preventDefault();
+                 var baordNo = $(this).attr("href"); 
+                 formObj.attr("action",[[@{'/boards/view'}]]);
+                 formObj.append("<input type='hidden' name = 'bno' value='"+boardNo+"'>");
+                 formObj.submit();
+              });
+              
+2. 조회 링크
+ - 조회 페이지는 내용을 보는 용도로, 수정/삭제는 별도의 페이지로 구분하자.
+ - 다음 두 링크가 필요하다.
+ - 수정/삭제 페이지 링크  |  게시물 리스트로 이동하는 링크
+ - 조회 페이지는 검색조건+페이징조건 값이 유지 된채로 이동 될수 있게 하자.
+ > <a th:href="@{modify(page=${pageVO.page}, size=${pageVO.size},type=${pageVO.type},keyword=${pageVO.keyword},
+           bno=${vo.bno})}" class="btn btn-default">수정하기/글삭제</a>
+ - 위 Thymeleaf 링크처리는 키=값 형태로 파라미터를 연결해 링크를 생성한다.
+ - 위는 <a href="modify?page=1&size=10&type=&keyword=&bno=20" .. 으로 처리된다.
+----
+
+## 게시물 삭제 수정
+1. 게시물 수정/삭제는 다음 순서로 처리하자
+    - 게시물 수정/삭제 페이지 처리
+    - 삭제 및 이동
+    - 수정 및 이동
+ 
+2. 컨트롤러에 수정/삭제 페이지 등록
+
+3. 삭제 처리 
+    - 수정과 삭제는 POST 방식으로 처리한다. 
+    - 컨트롤러 POST 처리 등록 
+    - addAttribute()는 addFlashAttribute()와 달리 url에 추가되어 전송된다.
+ 
+4. 수정처리
+    - 수정처리는 삭제 처리와 비슷허다.
+    - 컨트롤러에서 게시글 조회 후 수정한 다음 repository에 save 하자.
+
+## ps
+javascript 내장객체?
+ - <label>등록일</label> <input class="form-control" name="regDate" th:value="${#dates.format(vo.regdate,'yyyy-MM-dd')}"
+                                         readonly="readonly"/>
+ - dates에서 앞에 # 안붙이면 500에러 난다...
+ 
+ 
 ## 찾아볼거
   - th:value / th:text 차이점...
- 
+  - Model과 RedirectAttributes 차이점...

@@ -26,8 +26,15 @@
                                       readonly="readonly"/>
         </div>
     </div>
-</div>
 
+    <div class="pull-right">
+        <a th:href="@{modify(page=${pageVO.page}, size=${pageVO.size},type=${pageVO.type},keyword=${pageVO.keyword},
+        bno=${vo.bno})}" class="btn btn-default">수정/삭제</a>
+
+        <a th:href="@{list(page=${pageVO.page}, size=${pageVO.size},type=${pageVO.type},keyword=${pageVO.keyword},
+        bno=${vo.bno})}" class="btn btn-primary">리스트</a>
+    </div>
+</div>
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">

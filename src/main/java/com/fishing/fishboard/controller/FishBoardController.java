@@ -63,4 +63,43 @@ public class FishBoardController {
         log.info("BNO: "+bno);
         repository.findById(bno).ifPresent(board -> model.addAttribute("vo",board));
     }
+
+    @GetMapping("/modify")
+    public void modify(Long bno, @ModelAttribute("pageVO") PageVO vo, Model model) {
+        log.info("Modify : "+bno);
+        repository.findById(bno).ifPresent(board->model.addAttribute("vo",board));
+    }
+
+    @PostMapping("/delete")
+    public String delete(Long bno, PageVO vo, RedirectAttributes rttr) {
+        log.info("Delete : "+bno);
+        repository.deleteById(bno);
+        rttr.addFlashAttribute("msg","success");
+        rttr.addAttribute("page",vo.getPage());
+        rttr.addAttribute("size",vo.getSize());
+        rttr.addAttribute("type",vo.getType());
+        rttr.addAttribute("keyword",vo.getKeyword());
+
+        return "redirect:/boards/list";
+    }
+
+    @PostMapping("/modify")
+    public String modifyPost(FishBoard board, PageVO vo, RedirectAttributes rttr) {
+        log.info("Modi board : "+board);
+
+        repository.findById(board.getBno()).ifPresent(mboard -> {
+            mboard.setTitle(board.getTitle());
+            mboard.setContent(board.getContent());
+
+            repository.save(mboard);
+            rttr.addFlashAttribute("msg","success");
+            rttr.addAttribute("bno",mboard.getBno());
+        });
+        rttr.addAttribute("page",vo.getPage());
+        rttr.addAttribute("size",vo.getSize());
+        rttr.addAttribute("type",vo.getType());
+        rttr.addAttribute("keyword",vo.getKeyword());
+
+        return "redirect:/boards/view";
+    }
 }
