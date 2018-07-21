@@ -78,4 +78,26 @@ fishBaord
 3. QuerydslPredicateExecutor<>를 상속 받아 검색 조건 및 페이징 처리를 한다. 
 
 4. vo.PageMaker에서 페이지 숫자 표시를 처리.
+
+## 게시물 쓰기 처리
+1. 'GET' 방식으론 입력 화면 보고 ,'POST' 방식으론 게시물 등록 처리한다.
+2. controller 패키지 및에 FishBoardController에서 처리를 한다.
+3. board/register.html
+ >    <div class="panel-body">
+           <form th:action="@{register}" method="post">   // post 방식으로 요청을 보낸다. /register라는 url로
+               <div class="form-group">
+                   <label>제목</label> <input class="form-control" name="title" th:value="${vo.title}"/>
+                   <p class="help-block">제목을 입력하세요.</p>  // input에 기본적인 값이 들어옮
+               </div>
+           </form>
+      </div>
+      
+4. RedirectAttributes 
+  - RedirectAttributes의 addFlashAttribute()를 이용하면 URL상 전달되는 값이 보이지 않는다.
+  - 실질적으로 데이터가 전달 되기 떄문에 글이 등록 되엇다는 점을 표현할 수 있따.       
+        
+-----
+
+## 찾아볼거
+  - th:value / th:text 차이점...
  

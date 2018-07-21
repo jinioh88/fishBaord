@@ -1,6 +1,5 @@
 package com.fishing.fishboard.domain;
 
-import com.sun.tools.javac.comp.Todo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
