@@ -1,5 +1,6 @@
 package com.fishing.fishboard.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,26 +10,25 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Table(name="tbl_fishboards")
-@EqualsAndHashCode(of = "bno")
+@Table(name="tbl_webreplies")
+@EqualsAndHashCode(of="rno")
 @ToString
-public class FishBoard {
+public class WebReply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bno;
-    private String title;
-    private String writer;
-    private String content;
+    private Long rno;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
-    private List<WebReply> replies;
+    private String replyText;
+    private String replyer;
 
-    // Todo 지역, 낚시터명, 사진 추가 되야
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    private FishBoard board;
+
     @CreationTimestamp
     private Timestamp regdate;
     @UpdateTimestamp
