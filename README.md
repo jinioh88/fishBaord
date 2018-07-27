@@ -159,7 +159,22 @@ fishBaord
     - SPring MVC는 객체 데이터를 자동으로 JSON 데이터로 처리해주는 'jackson-databind'를 이용해 JSON 변환을 처리한다. 
     - 문제는 양방향일 경우 변환이 상호호출되 무한히 반복해 생성하는 문제가 생길 수 있다. 
     - 특정 속성에 @JsonIgnore를 붙여 JSON으로 안변하게 하면 된다.
-
+ - ReplyRepository 추가
+    - WebReply는 단독으로 CRUD가 가능하니 별도로 리파지토리를 만들자.
+ - ReplyController를 추가
+    - REST 방식에서 가장 중요한 결정은 각 작업을 위한 URL을 설계하는 것이다.
+    - REST 방식에서 자원은 보통 복수형을 사용한다. 고로 '/replies'의 형태로 잡아주자.
+    - 댓글 추가 : POST방식. /replies/게시물번호
+    - 댓글 삭제 : DELTE방식. /replies/게시물번호/댓글번호
+    - 댓글 수정 : PUT방식. /replies/게시물 번호
+    - 댓글 보기 : GET방식. /replies/게시물 번호
+ - 게시물 댓글 등록
+    - JSON 형태로 처리하기로 했는데 @PathVariable과 @RequestBody 에노테이션이 필요하다. 
+    - @PathVariable : URI일부를 파라미터로 받기위함.
+    - @RequestBody : JSON 형태로 전달되는 데이터를 객체로 자동 변환하기 위함.
+    - addReply()의 리턴값이 ResponseEntity 타입인데 이 코드를 이용해 HttpResponse의 상태 코드를 처리할 수 있다. 
+    - 
+    
 ## ps
 javascript 내장객체?
  - <label>등록일</label> <input class="form-control" name="regDate" th:value="${#dates.format(vo.regdate,'yyyy-MM-dd')}"
