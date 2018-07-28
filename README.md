@@ -141,7 +141,40 @@ fishBaord
 4. 수정처리
     - 수정처리는 삭제 처리와 비슷허다.
     - 컨트롤러에서 게시글 조회 후 수정한 다음 repository에 save 하자.
-
+    
+## 댓글처리
+ - REST 방식으로 댓글을 처리해 보도록 하자.
+ - JavaScript를 이용해 Ajax 호출을 하는 방식을 사용해 보도록 하자. 
+ - Ajax로 호출하면 댓글 관련 내용이 특정 게시물 조회 화면에서 이뤄지게 된다. 
+ - JPA 설계와 Repository의 설계/테스트
+    - 게시글과 댓글의 관계는 '일대다', '다대일' 관계이다. 
+    - 양방향으로 설계를 해보도록 한다. 
+    - domain 패키지에 WebReply 클래스를 만든다.
+ - 연관관계 설정
+    - FishBoard와 WebReply는 양방향 관계로 설정할 것이므로 WebReply에 FishBoard를 @ManyToOne 관계로 설정
+    - FIshBoard에는 @OneToMany 관계를 설정하자.
+    - 지연로딩으로 불필요하게 양쪽 테이블 조회 되지 않게 하자. 
+ - @JsonIgnore 어노테이션
+    - REST 방식에서 데이터를 전송하거나 반환할때 JSON 형태 데이터 주고 받게 설계한다.
+    - SPring MVC는 객체 데이터를 자동으로 JSON 데이터로 처리해주는 'jackson-databind'를 이용해 JSON 변환을 처리한다. 
+    - 문제는 양방향일 경우 변환이 상호호출되 무한히 반복해 생성하는 문제가 생길 수 있다. 
+    - 특정 속성에 @JsonIgnore를 붙여 JSON으로 안변하게 하면 된다.
+ - ReplyRepository 추가
+    - WebReply는 단독으로 CRUD가 가능하니 별도로 리파지토리를 만들자.
+ - ReplyController를 추가
+    - REST 방식에서 가장 중요한 결정은 각 작업을 위한 URL을 설계하는 것이다.
+    - REST 방식에서 자원은 보통 복수형을 사용한다. 고로 '/replies'의 형태로 잡아주자.
+    - 댓글 추가 : POST방식. /replies/게시물번호
+    - 댓글 삭제 : DELTE방식. /replies/게시물번호/댓글번호
+    - 댓글 수정 : PUT방식. /replies/게시물 번호
+    - 댓글 보기 : GET방식. /replies/게시물 번호
+ - 게시물 댓글 등록
+    - JSON 형태로 처리하기로 했는데 @PathVariable과 @RequestBody 에노테이션이 필요하다. 
+    - @PathVariable : URI일부를 파라미터로 받기위함.
+    - @RequestBody : JSON 형태로 전달되는 데이터를 객체로 자동 변환하기 위함.
+    - addReply()의 리턴값이 ResponseEntity 타입인데 이 코드를 이용해 HttpResponse의 상태 코드를 처리할 수 있다. 
+    - 
+    
 ## ps
 javascript 내장객체?
  - <label>등록일</label> <input class="form-control" name="regDate" th:value="${#dates.format(vo.regdate,'yyyy-MM-dd')}"
