@@ -1,5 +1,8 @@
 fishBaord
 ==========
+## 깃 리파지토리
+<img width="969" alt="2018-07-28 1 42 16" src="https://user-images.githubusercontent.com/37525926/43353155-1c5d7a5a-926c-11e8-9f89-33a89b867ed2.png">
+
 # 추가 설정
 ----------
 ## mysql 추가
