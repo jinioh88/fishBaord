@@ -4,10 +4,6 @@ var replyManager = (function () {
         $.getJSON('/replies/'+obj,callback);
    };
 
-    var add = function (obj,callback) {
-        console.log("add...");
-    };
-
     var update = function (obj,callback) {
         console.log("update...");
     };
@@ -15,6 +11,19 @@ var replyManager = (function () {
     var remove = function (obj,callback) {
         console.log("remove...");
     };
+
+    var add = function (obj, callback) {
+        console.log("add...");
+
+        $.ajax({
+            type: 'post',
+            url: '/replies/'+obj.bno,
+            data: JSON.stringify(obj),
+            dataType: 'json',
+            contentType: "application/json",
+            success: callback
+        });
+    }
 
     return {
         getAll: getAll,

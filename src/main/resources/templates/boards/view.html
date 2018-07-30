@@ -80,6 +80,25 @@
     <script th:inline="javascript">
         $(document).ready(function (e) {
             var mode;
+            var bno = [[${vo.bno}]];
+            var replyTextObj = $("input[name='replyText']");
+            var replyerObj = $("input[name='replyer']");
+
+            $("#modalBtn").click(function () {
+               if(mode=='ADD') {
+                   var replyText = replyTextObj.val();
+                   var replyer = replyerObj.val();
+                   var obj = {replyText: replyText, replyer: replyer, bno: bno};
+
+                   replyManager.add(obj,function (list) {
+                       printList(list);
+                       alert("새 댓글 추가!")
+                       $("#myModal").modal("hide");
+                       replyTextObj.val("");
+                       replyerObj.val("");
+                   });
+               }
+            });
 
             $("#addReplyBtn").on('click',function () {
                 $("#myModal").modal("show");
