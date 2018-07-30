@@ -51,12 +51,42 @@
     <div class="pull-right">
         <button class="btn" id="addReplyBtn">댓글추가</button>
     </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <label>댓글 내용</label>
+                    <input type="text" class="form-control" name="replyText">
+                    <label>글쓴이</label>
+                    <input type="text" class="form-control" name="replyer">
+                </div>
+                <div class="modal-footer">
+                    <button id="modalBtn" class="btn btn-info">저장</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <th:block layout:fragment="script">
     <script th:inline="javascript" th:src="@{'/js/reply.js'}"></script>
     <script th:inline="javascript">
         $(document).ready(function (e) {
+            var mode;
+
+            $("#addReplyBtn").on('click',function () {
+                $("#myModal").modal("show");
+                $(".modal-title").text("댓글 쓰기");
+                mode="ADD";
+            });
+
             (function () {
                 replyManager.getAll([[${vo.bno}]],printList);
             })();
