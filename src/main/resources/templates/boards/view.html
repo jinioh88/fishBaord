@@ -67,6 +67,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="modalBtn" class="btn btn-info">저장</button>
+                    <button id="delModalBtn" class="btn btn-danger">삭제</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                 </div>
             </div>
@@ -83,6 +84,32 @@
             var bno = [[${vo.bno}]];
             var replyTextObj = $("input[name='replyText']");
             var replyerObj = $("input[name='replyer']");
+            var rno;
+
+            $("#delModalBtn").on("click",function () {
+               var obj = {bno: bno, rno: rno};
+
+               replyManager.remove(obj,function (list) {
+                  printList(list);
+                  alert("댓글이 삭제 되었습니다.");
+                  $("#myModal").modal("hide");
+                  replyTextObj.val("");
+                  replyerObj.val("");
+               });
+            });
+
+            $("#replyTable").on("click","tr",function (e) {
+               var tds = $(this).find('td');
+               console.log(tds);
+
+               rno = tds[0].innerHTML;
+               mode='MOD';
+
+               replyTextObj.val(tds[1].innerHTML);
+               replyerObj.val(tds[2].innerHTML);
+               $("#myModal").modal("show");
+               $(".modal-title").text("댓글 수정/삭제")
+            });
 
             $("#modalBtn").click(function () {
                if(mode=='ADD') {

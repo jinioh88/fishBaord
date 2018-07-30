@@ -4,12 +4,20 @@ var replyManager = (function () {
         $.getJSON('/replies/'+obj,callback);
    };
 
+   var remove = function (obj, callback) {
+       console.log("remove...");
+
+       $.ajax({
+          type: 'delete',
+          url: '/replies/'+obj.bno+"/"+obj.rno,
+          dataType: 'json',
+          contentType: "application/json",
+          success:callback
+       });
+   };
+
     var update = function (obj,callback) {
         console.log("update...");
-    };
-
-    var remove = function (obj,callback) {
-        console.log("remove...");
     };
 
     var add = function (obj, callback) {
