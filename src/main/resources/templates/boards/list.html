@@ -26,7 +26,10 @@
                 <tbody>
                 <tr class="odd gradeX" th:each="board:${result.content}">
                     <td>[[${board.bno}]]</td>
-                    <td><a th:href='${board.bno}' class='boardLink'>[[${board.title}]]</a></td>
+                    <td>
+                        <a th:href='${board.bno}' class='boardLink'>[[${board.title}]]</a>
+                        <span class="badge">[[${board.replies.size()}]]</span>
+                    </td>
                     <td>[[${board.writer}]]</td>
                     <td class="center">[[${#dates.format(board.regdate,'yyyy-MM-dd')}]]</td>
                 </tr>

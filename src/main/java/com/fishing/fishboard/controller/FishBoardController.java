@@ -35,6 +35,7 @@ public class FishBoardController {
     public void list(@ModelAttribute("pageVO") PageVO vo, Model model) {
         Pageable page = vo.makePageable(0,"bno");
         Page<FishBoard> result = repository.findAll(repository.makePredicate(vo.getType(),vo.getKeyword()),page);
+
         log.info(""+page);
         log.info(""+result);
         log.info("Total page number : "+result.getTotalPages());

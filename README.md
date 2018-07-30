@@ -176,15 +176,79 @@ fishBaord
     - @PathVariable : URI일부를 파라미터로 받기위함.
     - @RequestBody : JSON 형태로 전달되는 데이터를 객체로 자동 변환하기 위함.
     - addReply()의 리턴값이 ResponseEntity 타입인데 이 코드를 이용해 HttpResponse의 상태 코드를 처리할 수 있다. 
-    - 
-    
+ - 게시물 등록 후 목록 처리
+    - WebREplyRepository와 연동해 실제 댓글 추가한다.
+    - 댓글을 추가하는 동안 다른 사용자들이 댓글을 추가할 수 있는 가능성이 있다.
+    - 이 문제를 해결하려 댓글을 추가한 후에는 데이터베이스에서 현재 게시물의 댓글을 새로 갱신하자.
+    - addReply()는 WebRepository의 save()와 findBoard~()를 연속해 호출하므로 @Transaction영속성 처리를 해주자. 
+ - 댓글 삭제
+    - 댓글 삭제 후 다시 게시물을 갱신하도록 하자. 
+    - 그러므로 댓글 삭제떄 rno가 필요하고,  갱신을 위해 게시물 번호가 필요하다.
+ - 댓글 수정
+    - PUT 방식으로 처리한다.
+ - 화면에서 댓글 처리
+    - 게시물 조회 화면에서 Ajax로 데이터를 처리하자. 
+    - javaScript로 하나의 객체를 생성해 처리하는 모듈패턴을 이용해 보자.
+ - 댓글 추가
+    - 댓글 추가는 부트스트랩 Modal로 처리해보자.
+ - 댓글 삭제
+    - 댓글을 클릭해 Mdal을 보여주고 처리해보자.
+ - 댓글 수정
+    - 댓글 수정은 모든 내용을 JavaScript 객체로 구성하고 replyManager로 전달하자. PUT 방식으로..
+ - 게시물 댓글 개수 
+    - 게시물 리스트에 각 댓글 수 표시를 해보자.
+    - 앞전에 게시물과 댓글을 양방향으로 설정했었다.
+    - 양방향으로 잡고 list를 출력하려고 하면 화면에 출력되는 게시글의 수만큼 댓글 테이블을 조회하게 된다. 
+    - 'N+1'의 상황이 발생했다. 
+    - 이것이 발생한 이유는 게시물의 목록을 가져오는 쿼리가 단순히 tbl_webboads 테이블만 접근해서 처리하기 떄문이다. 
+    - 그럼 어떻게 처리하나??
+    - @Query를 이용해 직접 필요한 엔티티들 간의 관계를 설정해주면 된다. 
+    - @Query는 고정된 JPQL을 실행하는덴 문제 없지만 동적으로 변하는 상황에선 어렵다(ex. 검색조건이 있다든지 처리..)
+    - 그럼 어떻게 동적으로 만들까??
+     
+
 ## ps
 javascript 내장객체?
  - <label>등록일</label> <input class="form-control" name="regDate" th:value="${#dates.format(vo.regdate,'yyyy-MM-dd')}"
                                          readonly="readonly"/>
  - dates에서 앞에 # 안붙이면 500에러 난다...
+
+html에서 자바스크립트 파일 불러오기
+ - <script th:inline="javascript" th:src="@{'/js/reply.js'}"></script>
  
+ajax 호출과정.
+ - 클라이언트에서 ajax 요청하면 서버로 간다.
+ - 서버는 XMLHttpRequest를 가지고 ajax요청을 처리한 후 결과를 브라우저에 전송. 
+view.html
+ >
+                $("#delModalBtn").on("click",function () {
+                   var obj = {bno: bno, rno: rno};
+    
+                   replyManager.remove(obj,function (list) {
+                      printList(list);
+                      alert("댓글이 삭제 되었습니다.");
+                      $("#myModal").modal("hide");
+                      replyTextObj.val("");
+                      replyerObj.val("");
+                   });
+                }); 
+
+reply.js
+ >
+        var remove = function (obj, callback) {
+           console.log("remove...");
+    
+           $.ajax({
+              type: 'delete',
+              url: '/replies/'+obj.bno+"/"+obj.rno,
+              dataType: 'json',
+              contentType: "application/json",
+              success:callback
+           });
+        };
  
 ## 찾아볼거
   - th:value / th:text 차이점...
   - Model과 RedirectAttributes 차이점...
+  - innerHTML
+  - 동적으로 쿼리 처리하는 방법...
