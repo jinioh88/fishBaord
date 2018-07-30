@@ -112,17 +112,21 @@
             });
 
             $("#modalBtn").click(function () {
+               var replyText = replyTextObj.val();
+               var replyer = replyerObj.val();
+
                if(mode=='ADD') {
-                   var replyText = replyTextObj.val();
-                   var replyer = replyerObj.val();
                    var obj = {replyText: replyText, replyer: replyer, bno: bno};
 
                    replyManager.add(obj,function (list) {
-                       printList(list);
                        alert("새 댓글 추가!")
-                       $("#myModal").modal("hide");
-                       replyTextObj.val("");
-                       replyerObj.val("");
+                       afterAll(list);
+                   });
+               }else if(mode=='MOD'){
+                   var obj = {replyText: replyText, bno: bno, rno: rno};
+                   replyManager.update(obj,function (list) {
+                       alert("댓글 수정!");
+                       afterAll(list);
                    });
                }
             });
@@ -157,6 +161,13 @@
                 return date.getFullYear()
                 + "-" + (date.getMonth()+1>=10?date.getMonth()+1:'0'+(date.getMonth()+1))
                 + "-" + date.getDate()
+            }
+
+            function afterAll(list) {
+                printList(list);
+                $("#myModal").modal("hide");
+                replyTextObj.val("");
+                replyerObj.val("");
             }
         });
     </script>
