@@ -206,7 +206,10 @@ fishBaord
     - @Query는 고정된 JPQL을 실행하는덴 문제 없지만 동적으로 변하는 상황에선 어렵다(ex. 검색조건이 있다든지 처리..)
     - 그럼 어떻게 동적으로 만들까??
     
-## 시큐리티 적용
+## 시큐리티 적용  
+  - 회원과 회원에대한 권한이 있어야 하므로 domain 패키지에 Member, MemberRole을 구현하자.
+  - 회원의 경우 스프링 시큐리티에서 username, password 단어를 사용하므로 충돌나지 않게 uname, upw로 지정하자.
+  - Member와 MemberRole은 1:N, N:1 관계이고 MemberRole 자체가 단독생성되는 경우가 없으므로 단방향으로 하자.
 
      
 
