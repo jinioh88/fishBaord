@@ -26,7 +26,7 @@ public class Member {
     @CreationTimestamp private LocalDateTime regdate;
     @UpdateTimestamp private LocalDateTime updatedate;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="member")
     private List<MemberRole> roles;
 }

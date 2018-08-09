@@ -210,7 +210,16 @@ fishBaord
   - 회원과 회원에대한 권한이 있어야 하므로 domain 패키지에 Member, MemberRole을 구현하자.
   - 회원의 경우 스프링 시큐리티에서 username, password 단어를 사용하므로 충돌나지 않게 uname, upw로 지정하자.
   - Member와 MemberRole은 1:N, N:1 관계이고 MemberRole 자체가 단독생성되는 경우가 없으므로 단방향으로 하자.
-
+  - 웹상 시큐리티는 필터 기반으로 동작한다. 
+  - 특정 사용자 접근
+    - SecurityConfig 클래스의 configure() 메서드를 이용해 보안을 적용하자.
+  - 로그인 정보 삭제
+    - 웹과 관련된 로그인 정보는 기본적으로 HttpSession을 이용한다. 
+  - 커스텀 로그인 페이지 만들어보자
+    - 기본적으로 시큐리티에서는 로그인 페이지를 제공한다.
+    - 너무 단조로우므로... 수정하도록 하자!
+    - formLogin()이후 loginPage() 메소드를 이용해 URI를 지정해 주면 된다. (SecurityConfig.java에서)
+    
      
 
 ## ps

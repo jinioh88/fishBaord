@@ -12,6 +12,7 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,5 +42,11 @@ public class MemberTest {
 
             repository.save(member);
         }
+    }
+
+    @Test
+    public void readTest() {
+        Optional<Member> result = repository.findById("user7");
+        result.ifPresent(member -> log.info("member : "+member));
     }
 }
