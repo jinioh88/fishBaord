@@ -14,7 +14,9 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "uid")
 @ToString
 public class MemberRole {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fno;
+
     private String roleName;
 }

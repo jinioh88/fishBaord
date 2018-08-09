@@ -13,11 +13,12 @@ import java.util.List;
 
 @Getter @Setter
 @Entity
-@Table(name="tlb_members")
+@Table(name="tbl_members")
 @EqualsAndHashCode(of = "uid")
 @ToString
 public class Member {
-    @Id private String uid;
+    @Id
+    private String uid;
     private String upw;
     private String uname;
     private String uphone;
@@ -25,7 +26,7 @@ public class Member {
     @CreationTimestamp private LocalDateTime regdate;
     @UpdateTimestamp private LocalDateTime updatedate;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="member")
     private List<MemberRole> roles;
 }
