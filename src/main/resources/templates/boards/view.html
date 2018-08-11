@@ -6,6 +6,7 @@
 <div layout:fragment="content">
     <div class="panel-heading">자유 게시판</div>
     <div class="panel-body">
+     <form th:action="${'/login'}"></form>
         <div class="form-group">
             <label>글번호</label> <input class="form-control" name="bno" th:value="${vo.bno}" readonly="readonly"/>
             <p class="help-block">제목을 입력하세요.</p>
@@ -88,6 +89,21 @@
             var replyerObj = $("input[name='replyer']");
             var rno;
             var uid = [[${#authentication.principal} eq 'anonyousUser'? null:${#authentication.principal.member.uid}]];
+            var csrf = JSON.parse('[[${_csrf}]]');
+
+            $("#addReplyBtn").on('click',function () {
+                if(uid==null){
+                    if(confirm("로그인 하시겠습니까?")) {
+                        self.location = [[@{/login}]]
+                    }
+                    return;
+                }
+                replyerObj.val(uid);
+                    $("#myModal").modal("show");
+                    $(".modal-title").text("댓글 달기");
+                    $("#delModalBtn").hide();
+                    mode="ADD";
+            });
 /*
             $("#goModBtn").click(function (e) {
                e.preventDefault();
@@ -104,14 +120,11 @@
                }
             });*/
             $("#delModalBtn").on("click",function () {
-               var obj = {bno: bno, rno: rno};
+               var obj = {bno: bno, rno: rno, csrf:csrf};
 
                replyManager.remove(obj,function (list) {
-                  printList(list);
                   alert("댓글이 삭제 되었습니다.");
-                  $("#myModal").modal("hide");
-                  replyTextObj.val("");
-                  replyerObj.val("");
+                  afterAll(list);
                });
             });
 
@@ -124,8 +137,13 @@
 
                replyTextObj.val(tds[1].innerHTML);
                replyerObj.val(tds[2].innerHTML);
+               $("#delModalBtn").show();
                $("#myModal").modal("show");
-               $(".modal-title").text("댓글 수정/삭제")
+               $(".modal-title").text("댓글 수정/삭제");
+               if(uid!=tds[2].innerHTML.trim()){
+                $("#delModalBtn").hide();
+                $("#modalBtn").hide();
+               }
             });
 
             $("#modalBtn").click(function () {
@@ -133,14 +151,19 @@
                var replyer = replyerObj.val();
 
                if(mode=='ADD') {
-                   var obj = {replyText: replyText, replyer: replyer, bno: bno};
+                   var obj = {
+                       replyText: replyText,
+                       replyer: replyer,
+                       bno: bno
+                       csrf:csrf;
+                   };
 
                    replyManager.add(obj,function (list) {
                        alert("새 댓글 추가!")
                        afterAll(list);
                    });
                }else if(mode=='MOD'){
-                   var obj = {replyText: replyText, bno: bno, rno: rno};
+                   var obj = {replyText: replyText, bno: bno, rno: rno,csrf:csrf};
                    replyManager.update(obj,function (list) {
                        alert("댓글 수정!");
                        afterAll(list);
