@@ -93,9 +93,7 @@
 
             $("#addReplyBtn").on('click',function () {
                 if(uid==null){
-                    if(confirm("로그인 하시겠습니까?")) {
-                        self.location = [[@{/login}]]
-                    }
+
                     return;
                 }
                 replyerObj.val(uid);
@@ -154,8 +152,8 @@
                    var obj = {
                        replyText: replyText,
                        replyer: replyer,
-                       bno: bno
-                       csrf:csrf;
+                       bno: bno,
+                       csrf:csrf
                    };
 
                    replyManager.add(obj,function (list) {
@@ -172,8 +170,16 @@
             });
 
             $("#addReplyBtn").on('click',function () {
+                if(uid==null){
+                    if(confirm("로그인하시겠습니까?")){
+                         self.location = '[[@{/login}]]'+"?dest=" + encodeURIComponent(self.location);
+                    }
+                    return;
+                    }
+                replyerObj.val(uid);
                 $("#myModal").modal("show");
                 $(".modal-title").text("댓글 쓰기");
+                $("#delModalBtn").hide();
                 mode="ADD";
             });
 
