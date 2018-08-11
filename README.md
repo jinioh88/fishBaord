@@ -219,7 +219,9 @@ fishBaord
     - 기본적으로 시큐리티에서는 로그인 페이지를 제공한다.
     - 너무 단조로우므로... 수정하도록 하자!
     - formLogin()이후 loginPage() 메소드를 이용해 URI를 지정해 주면 된다. (SecurityConfig.java에서)
-    
+  - 로그아웃 처리
+    - 스프링 시큐리티가 웹을 처리하는 방식의 기본은 HttpSession이므로 브라우저가 완전히 종료되면, 로그인한 정보를 잃게 된다. 
+    - http.logout.invalidateHttpSession()으로 브라우저 종료하지 않고 정보 삭제할 수 있다. 
      
 
 ## ps

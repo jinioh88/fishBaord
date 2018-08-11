@@ -13,8 +13,7 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    DataSource dataSource;
-
+    FishUsersService fishUsersService;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -25,17 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login");
         http.exceptionHandling().accessDeniedPage("/accessDenied");
         http.logout().logoutUrl("/logout").invalidateHttpSession(true);
+        http.userDetailsService(fishUsersService);
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        String query1 = "select uid username, CONCAT('{noop}',upw) password, true enabled from tbl_members where uid=?";
-        String query2 = "select member uid, role_name role from tbl_members_roles where member=?";
 
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery(query1)
-                .rolePrefix("ROLE_")
-                .authoritiesByUsernameQuery(query2);
-    }
 }
