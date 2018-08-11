@@ -20,9 +20,7 @@ public class FishUsersService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        repository.findById(username).ifPresent(member->{
-            log.info(""+member);
-        });
-        return null;
+        return repository.findById(username).filter(m->m!=null)
+                                            .map(m->new FishSecurityUser(m)).get();
     }
 }
