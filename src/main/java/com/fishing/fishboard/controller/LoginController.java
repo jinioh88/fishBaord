@@ -10,4 +10,11 @@ public class LoginController {
     public String loginPage() {
         return "login";
     }
+
+    @GetMapping("/accessDenided")
+    public void accessDenied() {
+    }
+
+    @GetMapping("/logout")
+    public void logout(){}
 }
