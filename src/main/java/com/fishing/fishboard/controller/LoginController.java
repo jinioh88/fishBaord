@@ -12,10 +12,6 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String loginPost() {
-        return "admin";
-    }
 
     @GetMapping("/accessDenided")
     public void accessDenied() {

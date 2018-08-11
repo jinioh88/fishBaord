@@ -16,10 +16,12 @@ import java.util.List;
 public class FishSecurityUser extends User {
     private static final String ROLE_PREFIX="ROLE_";
     private Member member;
+    private String memberStr;
 
     public FishSecurityUser(Member member) {
-        super(member.getUid(),"{noop}"+member.getUpw(),makeGrantedAuthrity(member.getRoles()));
+        super(member.getUid(),member.getUpw(),makeGrantedAuthrity(member.getRoles()));
         this.member = member;
+        this.memberStr = member.getUid();
     }
 
     private static List<GrantedAuthority> makeGrantedAuthrity(List<MemberRole> roles) {

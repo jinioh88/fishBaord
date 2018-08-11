@@ -1,4 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout/layout1}">
 
@@ -27,9 +28,10 @@
         </div>
     </div>
 
-    <div class="pull-right">
-        <a th:href="@{modify(page=${pageVO.page}, size=${pageVO.size},type=${pageVO.type},keyword=${pageVO.keyword},
-        bno=${vo.bno})}" class="btn btn-default">수정/삭제</a>
+    <div class="pull-right" th:with="uid =${#authentication.principal} eq 'anonymousUser'? 'Guest':${#authentication.principal.member.uid} ">
+        <a th:if="${uid} eq ${vo.writer}" th:href="@{modify(page=${pageVO.page}, size=${pageVO.size}
+        ,type=${pageVO.type},keyword=${pageVO.keyword},
+        bno=${vo.bno})}" class="btn btn-default" id="goModBtn">수정/삭제</a>
 
         <a th:href="@{list(page=${pageVO.page}, size=${pageVO.size},type=${pageVO.type},keyword=${pageVO.keyword},
         bno=${vo.bno})}" class="btn btn-primary">리스트</a>
@@ -85,7 +87,22 @@
             var replyTextObj = $("input[name='replyText']");
             var replyerObj = $("input[name='replyer']");
             var rno;
-
+            var uid = [[${#authentication.principal} eq 'anonyousUser'? null:${#authentication.principal.member.uid}]];
+/*
+            $("#goModBtn").click(function (e) {
+               e.preventDefault();
+               if(uid==null){
+                   if(confirm("로그인 하시겠습니까?")){
+                       self.location=$(this).attr("href");
+                   }else{
+                       if(uid==[[${vo.writer}]]){
+                           self.location=$(this).attr("href");
+                       }else{
+                           alert("작성자만 수정/삭제할 수 있습니다.");
+                       }
+                   }
+               }
+            });*/
             $("#delModalBtn").on("click",function () {
                var obj = {bno: bno, rno: rno};
 
