@@ -24,6 +24,9 @@
     <p>
         <label for="password">Password</label> <input type="password" id="password" name="password" value="1111"/>
     </p>
+    <p>
+        <label for="remember-me">Remember-Me</label> <input type="checkbox" id="remember-me" name="remember-me"/>
+    </p>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <button type="submit" class="btn">Log in</button>
 </form>

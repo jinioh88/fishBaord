@@ -219,7 +219,31 @@ fishBaord
     - 기본적으로 시큐리티에서는 로그인 페이지를 제공한다.
     - 너무 단조로우므로... 수정하도록 하자!
     - formLogin()이후 loginPage() 메소드를 이용해 URI를 지정해 주면 된다. (SecurityConfig.java에서)
-    
+  - 로그아웃 처리
+    - 스프링 시큐리티가 웹을 처리하는 방식의 기본은 HttpSession이므로 브라우저가 완전히 종료되면, 로그인한 정보를 잃게 된다. 
+    - http.logout.invalidateHttpSession()으로 브라우저 종료하지 않고 정보 삭제할 수 있다. 
+  - 리맴버 미
+    - 쿠키의 값으로 암호화된 값을 전달한다. 키('fish')를 지정해 사용하자. 
+    - 리멤버미를 데이터베이스에 보관하도록 설정하자. 
+    - 다음 토큰보관 테이블 생성하자
+     >
+        mysql> create table persistent_logins(
+               username varchar(64) not null,
+               series varchar(64) primary key,
+               token varchar(64) not null,
+               last_user timestamp not null
+               );
+    - 시큐리티 적용된 수정 삭제 시 CSRF 파라미터가 반드시 필요하다. 
+        - <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> 요걸 추가하거나
+        - th:action="@{/}" 를 form에 추가하면 된다. 
+  - Ajax 시큐리티 처리
+    - Ajax로 호출하는 작업에 CSRF 값이 같이 전송되야 한다. 
+    - 댓글은 로그인한 사용자만 가능하도록 하게 하자.
+    - 댓글컨트롤러에 해당 메서드에 @Secured(value = {"ROLE_USER","ROLE_ADMIN"}) 추가
+  - 인터셉터를 추가하자
+    - 인터셉터는 컨트롤러의 호출을 사전 or 사후에 가로챌 수 있따. 
+    - 인터셉터는 서블릿 관련 자원들을 그대로 활용할 수 있따. 
+    - default 메서드의 등장으로 WebMvcConfigurerAdapter는 디플리케이트 되었다. 
      
 
 ## ps

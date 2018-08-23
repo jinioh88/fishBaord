@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="tlb_members")
+@Table(name="tbl_members_roles")
 @EqualsAndHashCode(of = "uid")
 @ToString
 public class MemberRole {

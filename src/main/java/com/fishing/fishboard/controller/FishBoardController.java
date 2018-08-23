@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,25 +66,14 @@ public class FishBoardController {
         repository.findById(bno).ifPresent(board -> model.addAttribute("vo",board));
     }
 
+    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
     @GetMapping("/modify")
     public void modify(Long bno, @ModelAttribute("pageVO") PageVO vo, Model model) {
         log.info("Modify : "+bno);
         repository.findById(bno).ifPresent(board->model.addAttribute("vo",board));
     }
 
-    @PostMapping("/delete")
-    public String delete(Long bno, PageVO vo, RedirectAttributes rttr) {
-        log.info("Delete : "+bno);
-        repository.deleteById(bno);
-        rttr.addFlashAttribute("msg","success");
-        rttr.addAttribute("page",vo.getPage());
-        rttr.addAttribute("size",vo.getSize());
-        rttr.addAttribute("type",vo.getType());
-        rttr.addAttribute("keyword",vo.getKeyword());
-
-        return "redirect:/boards/list";
-    }
-
+    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
     @PostMapping("/modify")
     public String modifyPost(FishBoard board, PageVO vo, RedirectAttributes rttr) {
         log.info("Modi board : "+board);
@@ -103,4 +93,19 @@ public class FishBoardController {
 
         return "redirect:/boards/view";
     }
+
+    @PostMapping("/delete")
+    public String delete(Long bno, PageVO vo, RedirectAttributes rttr) {
+        log.info("Delete : "+bno);
+        repository.deleteById(bno);
+        rttr.addFlashAttribute("msg","success");
+        rttr.addAttribute("page",vo.getPage());
+        rttr.addAttribute("size",vo.getSize());
+        rttr.addAttribute("type",vo.getType());
+        rttr.addAttribute("keyword",vo.getKeyword());
+
+        return "redirect:/boards/list";
+    }
+
+
 }
