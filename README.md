@@ -288,9 +288,17 @@ reply.js
               success:callback
            });
         };
+        
+### 조행기 게시판을 만들려한다.
+1. PhotoBoard 엔티티
+  - id, title, content, files, regdate, editdate, user, location 칼람을 주기로하고..
+  - Member와는 1:n 관계로 주고 단방향을 주기로하자.(게시물에서 회원을 가지게)
+2. 사진 저장은 어떻게 해야하나??
+  - DB 서버? (아마존?, 도커?)
+  - 사진을 축소해야 하니 썸네일이란 것이 필요하겟다.
+  - Location은 구글Map을 갖고오도록하자 (일단은 스트링으로 받고 나머지 기능 완성되면 구글맵을...)
  
 ## 찾아볼거
   - th:value / th:text 차이점...
   - Model과 RedirectAttributes 차이점...
-  - innerHTML
   - 동적으로 쿼리 처리하는 방법...
