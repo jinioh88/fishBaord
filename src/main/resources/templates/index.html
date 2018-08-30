@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script>
+        #bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+        }
+        #bg img {
+            position:absolute;
+            top:0; left:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+            min-width:50%;
+            min-height:50%;
+        }
+    </script>
+    <style>
+        body{
+            background-color:#9fcdff;
+        }
+    </style>
     <title>FishBoard</title>
 </head>
 <body>
-<h2>Hello fishBoard</h2>
+<h2>시시콜콜 배스 낚시 커뮤니티</h2> </hr>
+<a href="/boards/list" methods="GET">자유 게시판</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="/boards/johang" methods="GET">배스 조행기</a>
+<div id="bg"> <img src="background.jpg" alt=""> </div>
 </body>
 </html>

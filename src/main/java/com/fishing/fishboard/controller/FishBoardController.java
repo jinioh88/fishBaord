@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/boards/")
+@RequestMapping("/boards")
 @Log
 public class FishBoardController {
 
@@ -107,5 +107,8 @@ public class FishBoardController {
         return "redirect:/boards/list";
     }
 
+    @GetMapping("/johang")
+    public void johang() {
 
+    }
 }
