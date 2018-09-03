@@ -107,8 +107,4 @@ public class FishBoardController {
         return "redirect:/boards/list";
     }
 
-    @GetMapping("/johang")
-    public void johang() {
-
-    }
 }
