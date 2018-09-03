@@ -290,7 +290,7 @@ reply.js
         };
         
 ### 조행기 게시판을 만들려한다.
-1. PhotoBoard 엔티티
+1. JohangBoard 엔티티
   - id, title, content, files, regdate, editdate, user, location 칼람을 주기로하고..
   - Member와는 1:n 관계로 주고 단방향을 주기로하자.(게시물에서 회원을 가지게)
 2. 사진 저장은 어떻게 해야하나??

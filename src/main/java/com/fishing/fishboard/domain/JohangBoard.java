@@ -23,7 +23,6 @@ public class JohangBoard {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private String writer;
     private String images;  // 나중에 파일로 수정..
     private int likes;  // 좋아요
 
@@ -31,4 +30,8 @@ public class JohangBoard {
     private Timestamp regdate;
     @UpdateTimestamp
     private Timestamp updatedate;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 }
