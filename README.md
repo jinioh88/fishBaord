@@ -6,6 +6,13 @@ fishBaord
 ## 메인 화면
 <img width="957" alt="default" src="https://user-images.githubusercontent.com/37525926/44866086-2daf6300-acbf-11e8-8ae3-c314132c5a76.png">
 
+## 배스 자유게시판
+<img width="1231" alt="2018-09-04 1 25 06" src="https://user-images.githubusercontent.com/37525926/45010006-259c4e00-b046-11e8-8f32-b61407ebc8a4.png">
+
+## 배스 조황게시판
+<img width="1231" alt="2018-09-04 1 25 37" src="https://user-images.githubusercontent.com/37525926/45010045-52e8fc00-b046-11e8-8958-faabaa8a5cb9.png">
+
+
 # 추가 설정
 ----------
 ## mysql 추가
