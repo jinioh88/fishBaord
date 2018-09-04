@@ -29,4 +29,14 @@ public class Member {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="member")
     private List<MemberRole> roles;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<JohangBoard> johangBoardList;
+
+    public void addJohangBoard(JohangBoard board) {
+        this.johangBoardList.add(board);
+        if(board.getMember()!=this) {
+            board.setMember(this);
+        }
+    }
 }
