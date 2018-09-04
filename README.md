@@ -3,6 +3,9 @@ fishBaord
 ## 깃 리파지토리
 <img width="969" alt="2018-07-28 1 42 16" src="https://user-images.githubusercontent.com/37525926/43353155-1c5d7a5a-926c-11e8-9f89-33a89b867ed2.png">
 
+## 메인 화면
+<img width="957" alt="default" src="https://user-images.githubusercontent.com/37525926/44866086-2daf6300-acbf-11e8-8ae3-c314132c5a76.png">
+
 # 추가 설정
 ----------
 ## mysql 추가
@@ -294,7 +297,7 @@ reply.js
         };
         
 ### 조행기 게시판을 만들려한다.
-1. PhotoBoard 엔티티
+1. JohangBoard 엔티티
   - id, title, content, files, regdate, editdate, user, location 칼람을 주기로하고..
   - Member와는 1:n 관계로 주고 단방향을 주기로하자.(게시물에서 회원을 가지게)
 2. 사진 저장은 어떻게 해야하나??
