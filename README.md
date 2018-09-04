@@ -244,6 +244,13 @@ fishBaord
     - 인터셉터는 컨트롤러의 호출을 사전 or 사후에 가로챌 수 있따. 
     - 인터셉터는 서블릿 관련 자원들을 그대로 활용할 수 있따. 
     - default 메서드의 등장으로 WebMvcConfigurerAdapter는 디플리케이트 되었다. 
+  - UserDetailsService 
+    - 시큐리티가 제공하는 인터페이스
+    - loadUserByUsername를 오버라이드 한다. 
+        - 위에 @Transactional(readOnly = true)를 붙여야 레이지 로딩으로 불러올 수 있다. 
+    - 빈으로 등록하는 방버은 컴포넌트 스캔으로 하면 된다. 
+    - username으로 Member 엔티티 찾고 UserDtails를 구현하고 있는 객체에 Member의 id/pw를 저장한다. 
+    - 사용자 권한 리스트도 생성해 UserDtails 객체에 설정한다. 
      
 
 ## ps
