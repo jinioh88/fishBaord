@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.stream.IntStream;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Log    @Commit
@@ -23,14 +25,16 @@ public class JohangTest {
 
     @Test
     public void insertOne(){
-        JohangBoard board = new JohangBoard();
-        board.setContent("경기도 배스 잡았어요~!!!");
-        board.setImages("images1.jpg");
-        board.setLikes(0);
+        IntStream.range(1,10).forEach(n->{
+            JohangBoard board = new JohangBoard();
+            board.setContent("경기도 배스 잡았어요~!!!");
+            board.setImages("images"+n+".jpg");
+            board.setLikes(n);
 
-        Member member = memberRepository.findMemberByUid("test1");
-        board.setMember(member);
+            Member member = memberRepository.findMemberByUid("oh");
+            board.setMember(member);
 
-        johangRepository.save(board);
+            johangRepository.save(board);
+        });
     }
 }
