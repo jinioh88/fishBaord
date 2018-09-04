@@ -1,5 +1,6 @@
 package com.fishing.fishboard;
 
+import com.fishing.fishboard.listener.StartListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FishboardApplication {
 
     public static void main(String[] args) {
-
-        SpringApplication.run(FishboardApplication.class, args);
+        SpringApplication application = new SpringApplication(FishboardApplication.class);
+        application.addListeners(new StartListener());
+        application.run(args);
     }
 }
