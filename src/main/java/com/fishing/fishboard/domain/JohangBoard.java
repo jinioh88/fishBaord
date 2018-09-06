@@ -20,6 +20,7 @@ public class JohangBoard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long jno;
 
+    private String title;
     @Column(columnDefinition = "TEXT")
     private String content;
 

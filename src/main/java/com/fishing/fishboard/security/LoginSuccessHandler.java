@@ -29,6 +29,8 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         }
 
         log.info("-------------------"+nextURL+"========================");
+
+        request.getSession().setAttribute("sessionID","회원");
         return nextURL;
     }
 }

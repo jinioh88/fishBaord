@@ -22,11 +22,12 @@ public class JohangTest {
     JohangRepository johangRepository;
     @Autowired
     MemberRepository memberRepository;
-
+    int n = 1;
     @Test
     public void insertOne(){
         IntStream.range(1,10).forEach(n->{
             JohangBoard board = new JohangBoard();
+            board.setTitle("배스 잡이"+(n++));
             board.setContent("경기도 배스 잡았어요~!!!");
             board.setImages("images"+n+".jpg");
             board.setLikes(n);

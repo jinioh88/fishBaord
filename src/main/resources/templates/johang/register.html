@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>배스 낚시 조행기</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/css/3-col-portfolio.css" >
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">배스낚시 커뮤니티</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading -->
+    <h1 class="my-4">배스 조행기
+        <small>자랑하기</small>
+    </h1>
+    <form th:action="@{register}" method="post" enctype="multipart/form-data">
+    <!--<form action="/johang/register" method="post" enctype="multipart/form-data">-->
+        <div class="form-group">
+            <label>제목</label> <input class="form-control" name="title"/>
+        </div>
+        <div class="form-group">
+            <label>내용</label>
+            <textarea class="form-control" rows="3" name='content'></textarea>
+        </div>
+        <table border="0">
+            <tr>
+                <td>Pick file #1:</td>
+                <td><input type="file" name="fileUpload" size="50" /></td>
+            </tr>
+        </table>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">글쓰기</button>
+            <button type="reset" class="btn btn-primary">Reset</button>
+        </div>
+    </form>
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">시시콜콜 배스낚시</p>
+        <p class="m-0 text-center text-white">운영자 : 오세진</p>
+        <p class="m-0 text-center text-white">연락처 : 010-3555-6703</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="/vendor/jquery/jquery.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+</body>
+
+</html>
