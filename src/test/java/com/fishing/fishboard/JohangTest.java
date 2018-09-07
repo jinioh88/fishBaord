@@ -1,5 +1,6 @@
 package com.fishing.fishboard;
 
+import com.fishing.fishboard.domain.ImageVO;
 import com.fishing.fishboard.domain.JohangBoard;
 import com.fishing.fishboard.domain.Member;
 import com.fishing.fishboard.persistence.JohangRepository;
@@ -26,10 +27,16 @@ public class JohangTest {
     @Test
     public void insertOne(){
         IntStream.range(1,10).forEach(n->{
+            byte[] b = new byte[1024];
+            String ss = "df;lkasdf;lkasdjfl;kasdjflasdkfj";
+            b = ss.getBytes();
+            ImageVO vo = new ImageVO();
+            vo.setFilename("image"+n);
+            vo.setData(b);
             JohangBoard board = new JohangBoard();
             board.setTitle("배스 잡이"+(n++));
             board.setContent("경기도 배스 잡았어요~!!!");
-            board.setImages("images"+n+".jpg");
+            board.setImagevo(vo);
             board.setLikes(n);
 
             Member member = memberRepository.findMemberByUid("oh");

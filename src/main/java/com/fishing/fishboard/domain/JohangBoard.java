@@ -24,7 +24,10 @@ public class JohangBoard {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private String images;  // 나중에 파일로 수정..
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "imagevo_id")
+    private ImageVO imagevo;
+
     private int likes;  // 좋아요
 
     @CreationTimestamp
