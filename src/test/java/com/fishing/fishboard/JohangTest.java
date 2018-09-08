@@ -32,7 +32,7 @@ public class JohangTest {
             b = ss.getBytes();
             ImageVO vo = new ImageVO();
             vo.setFilename("image"+n);
-            vo.setData(b);
+//            vo.setData(b);
             JohangBoard board = new JohangBoard();
             board.setTitle("배스 잡이"+(n++));
             board.setContent("경기도 배스 잡았어요~!!!");

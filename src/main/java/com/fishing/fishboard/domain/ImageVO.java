@@ -16,7 +16,7 @@ public class ImageVO {
     Long ino;
     String filename;
 
-    @Lob
-    @Column(length = 5120)
-    private byte[] data;
+//    @Lob
+//    @Column(length = 5120)
+//    private byte[] data;
 }
