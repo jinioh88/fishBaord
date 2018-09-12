@@ -1,6 +1,5 @@
 package com.fishing.fishboard.controller;
 
-import com.fishing.fishboard.domain.ImageVO;
 import com.fishing.fishboard.domain.JohangBoard;
 import com.fishing.fishboard.domain.Member;
 import com.fishing.fishboard.persistence.ImageVORepository;
@@ -46,6 +45,8 @@ public class JohangController {
             System.out.println(list.get(i).getMember().getUname());
         }
         model.addAttribute("list",list);
+
+
         return "/johang/johang";
     }
 

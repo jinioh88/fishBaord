@@ -7,10 +7,13 @@
 //import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 //import com.amazonaws.services.s3.AmazonS3;
 //import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+//import com.amazonaws.services.s3.model.ListObjectsRequest;
+//import com.amazonaws.services.s3.model.ObjectListing;
+//import com.amazonaws.services.s3.model.S3ObjectSummary;
 //
 //import java.io.IOException;
 //
-//public class BucketAdd {
+//public class ObjectList {
 //    public static void main(String[] args) throws IOException {
 //
 //        /*
@@ -39,17 +42,30 @@
 //        System.out.println("===========================================\n");
 //
 //        try {
-//            String bucketName = "jini-01.newdeal.bitcamp.net";
+//
 //            /*
-//             * Create a new S3 bucket - Amazon S3 bucket names are globally unique,
-//             * so once a bucket name has been taken by any user, you can't create
-//             * another bucket with that same name.
-//             *
-//             * You can optionally specify a location for your bucket if you want to
-//             * keep your data closer to your applications or users.
+//             * List objects in your bucket by prefix - There are many options for
+//             * listing the objects in your bucket.  Keep in mind that buckets with
+//             * many objects might truncate their results when listing their objects,
+//             * so be sure to check if the returned object listing is truncated, and
+//             * use the AmazonS3.listNextBatchOfObjects(...) operation to retrieve
+//             * additional results.
 //             */
-//            System.out.println("Creating bucket " + bucketName + "\n");
-//            s3.createBucket(bucketName);
+//            String bucketName = "jini-01.newdeal.bitcamp.net";
+//
+//            System.out.println("Listing objects");
+//            ObjectListing objectListing =
+//                    s3.listObjects(new ListObjectsRequest()
+//                                    .withBucketName(bucketName)
+//                            //.withPrefix("My")
+//                    );
+//            for (S3ObjectSummary objectSummary :
+//                    objectListing.getObjectSummaries()) {
+//                System.out.println(
+//                        " - " + objectSummary.getKey() + "  " +
+//                                "(size = " + objectSummary.getSize() + ")");
+//            }
+//            System.out.println();
 //
 //        } catch (AmazonServiceException ase) {
 //            System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -66,4 +82,5 @@
 //            System.out.println("Error Message: " + ace.getMessage());
 //        }
 //    }
+//
 //}

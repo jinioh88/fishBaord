@@ -7,10 +7,15 @@
 //import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 //import com.amazonaws.services.s3.AmazonS3;
 //import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+//import com.amazonaws.services.s3.model.AccessControlList;
+//import com.amazonaws.services.s3.model.GroupGrantee;
+//import com.amazonaws.services.s3.model.Permission;
+//import com.amazonaws.services.s3.model.PutObjectRequest;
 //
+//import java.io.File;
 //import java.io.IOException;
 //
-//public class BucketAdd {
+//public class ObjectUpoad {
 //    public static void main(String[] args) throws IOException {
 //
 //        /*
@@ -39,17 +44,28 @@
 //        System.out.println("===========================================\n");
 //
 //        try {
-//            String bucketName = "jini-01.newdeal.bitcamp.net";
+//
 //            /*
-//             * Create a new S3 bucket - Amazon S3 bucket names are globally unique,
-//             * so once a bucket name has been taken by any user, you can't create
-//             * another bucket with that same name.
-//             *
-//             * You can optionally specify a location for your bucket if you want to
-//             * keep your data closer to your applications or users.
+//             * Upload an object to your bucket - You can easily upload a file to
+//             * S3, or upload directly an InputStream if you know the length of
+//             * the data in the stream. You can also specify your own metadata
+//             * when uploading to S3, which allows you set a variety of options
+//             * like content-type and content-encoding, plus additional metadata
+//             * specific to your applications.
 //             */
-//            System.out.println("Creating bucket " + bucketName + "\n");
-//            s3.createBucket(bucketName);
+//            String bucketName = "jini-01.newdeal.bitcamp.net";
+//
+//            AccessControlList acl = new AccessControlList();
+//            acl.grantPermission(GroupGrantee.AllUsers, Permission.Read);
+//
+//            PutObjectRequest objRequest = new PutObjectRequest(
+//                    bucketName, "img01", new File("/Users/osejin/fishImg/img01.jpeg"));
+//            objRequest.setAccessControlList(acl);
+//
+//            System.out.println("Uploading a new object to S3 from a file\n");
+//            s3.putObject(objRequest);
+//
+//            System.out.println("업로드 완료!");
 //
 //        } catch (AmazonServiceException ase) {
 //            System.out.println("Caught an AmazonServiceException, which means your request made it "
@@ -64,6 +80,8 @@
 //                    + "a serious internal problem while trying to communicate with S3, "
 //                    + "such as not being able to access the network.");
 //            System.out.println("Error Message: " + ace.getMessage());
+//            ace.printStackTrace();
 //        }
 //    }
+//
 //}

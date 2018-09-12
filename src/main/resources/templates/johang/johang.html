@@ -53,71 +53,20 @@
     </h1>
     <div class="right"><a href="/johang/register" methods="GET">글쓰기</a></div>
 
-    <div th:class="row" th:each="list:${list}">
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="img01.jpg" alt=""></a>
-                <div class="card-body">
+    <div th:class="row" >
+        <!--<div class="col-lg-4 col-sm-6 portfolio-item" >-->
+            <div class="card" style="width: 30%;" th:each="list:${list}">
+                <div style="text-align: right; margin: 5px">
+                <a href="#"><img class="card-img-top" src="/image01.jpg" alt=""></a>
+                    <!--<a href="#"><img class="card-img-top" th:src="@{${'/'+list.imagevo.filename+'.jpg'}}" alt=""></a>-->
+
+                    <div class="card-body">
                     <h4 class="card-title">
                         <a href="#">[[${list.title}]]</a>
                     </h4>
                     <p th:class="card-text" >[[${list.content}]]<br>등록일 : [[${list.regdate}]]<br>작성자 : [[${list.member.uname}]]<br>추천수 : [[${list.likes}]]</p>
                 </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="img02.jpg" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">[[${list.titlee}]</a>
-                    </h4>
-                    <p th:class="card-text" >[[${list.content}]]<br>등록일 : [[${list.regdate}]]<br>작성자 : [[${list.member.uname}]]<br>추천수 : [[${list.likes}]]</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="img03.jpg" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">[[${list.title}]</a>
-                    </h4>
-                    <p th:class="card-text" >[[${list.content}]]<br>등록일 : [[${list.regdate}]]<br>작성자 : [[${list.member.uname}]]<br>추천수 : [[${list.likes}]]</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="img04.jpg" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">[[${list.title}]</a>
-                    </h4>
-                    <p th:class="card-text" >[[${list.content}]]<br>등록일 : [[${list.regdate}]]<br>작성자 : [[${list.member.uname}]]<br>추천수 : [[${list.likes}]]</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">[[${list.title}]</a>
-                    </h4>
-                    <p th:class="card-text" >[[${list.content}]]<br>등록일 : [[${list.regdate}]]<br>작성자 : [[${list.member.uname}]]<br>추천수 : [[${list.likes}]]</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="#">[[${list.title}]</a>
-                    </h4>
-                    <p th:class="card-text" >[[${list.content}]]<br>등록일 : [[${list.regdate}]]<br>작성자 : [[${list.member.uname}]]<br>추천수 : [[${list.likes}]]</p>
-                </div>
+                    
             </div>
         </div>
     </div>
