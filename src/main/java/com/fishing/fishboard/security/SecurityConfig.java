@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/member/join").permitAll();
 
         http
-                .formLogin().successHandler(new LoginSuccessHandler());
+                .formLogin().loginPage("/login").successHandler(new LoginSuccessHandler());
         http.exceptionHandling().accessDeniedPage("/accessDenied");
         http.logout().logoutUrl("/logout").invalidateHttpSession(true);
         http.rememberMe().key("fish")
