@@ -1,34 +1,53 @@
-<!doctype html>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login</title>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
 </head>
-<body>
-    <h2>로그인 페이지</h2>
-    <div th:if="${param.error!=null}">
-        <h2>잘못된 사용자 정보입니다.</h2>
-        <h2 th:value="${param.error}"></h2>
-    </div>
+<body id="LoginForm">
+<div class="container">
+    <h1 class="form-heading">로그인</h1>
+    <div class="login-form">
+        <div class="main-div">
+            <div class="panel">
+                <p>id와 암호를 입력하세요</p>
+            </div>
+            <form method="post">
 
-    <div th:if="${param.logout!=null}">
-        <h2>이미 로그아웃 함.</h2>
-    </div>
+                <div class="form-group">
 
-<form method="post">
-    <p>
-        <label for="username">Username</label> <input type="text" id="username" name="username" value="아이디입력"/>
-    </p>
-    <p>
-        <label for="password">Password</label> <input type="password" id="password" name="password" value="1111"/>
-    </p>
-    <p>
-        <label for="remember-me">Remember-Me</label> <input type="checkbox" id="remember-me" name="remember-me"/>
-    </p>
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-    <button type="submit" class="btn">Log in</button>
-</form>
+
+                    <input type="text" class="form-control" id="username" name="username" placeholder="ID">
+
+                </div>
+
+                <div class="form-group">
+
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+
+                </div>
+                <p>
+                    <label for="remember-me">Remember-Me</label> <input type="checkbox" id="remember-me"
+                                                                        name="remember-me"/>
+                </p>
+                <p>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </p>
+                <button type="submit" class="btn btn-primary">Login</button>
+
+            </form>
+        </div>
+        <p class="botto-text"> 시시콜콜 낚시 커뮤니티</p>
+    </div></div></div>
+
+
 </body>
 </html>
