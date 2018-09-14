@@ -39,10 +39,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a th:if="${#authentication.name} eq 'anonymousUser'" class="nav-link" href="/login">Login</a>
+                    <a th:if="${#authentication.name} eq 'anonymousUser'" class="nav-link" th:href="@{login}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">[[${#authentication.name}]] 님 안녕하세요</a>
+                    <a th:unless="${#authentication.name} eq 'anonymousUser'" class="nav-link" href="#">[[${#authentication.name}]] 님 안녕하세요</a>
+                    <a th:if="${#authentication.name} eq 'anonymousUser'" class="nav-link" href="#">GUEST 님 안녕하세요</a>
                 </li>
 
             </ul>

@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/boards/list").permitAll()
                     .antMatchers("/boards/register").hasAnyRole("USER","ADMIN")
-                    .antMatchers("/photoboards/test").hasRole("USER")
+                    .antMatchers("/johang/list").permitAll()
+                    .antMatchers("/johang/register").hasAnyRole("USER","ADMIN")
                     .antMatchers("/member/join").permitAll();
 
         http
@@ -64,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    public void configureGlocal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(fishUsersService).passwordEncoder(passwordEncoder());
     }
 }

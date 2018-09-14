@@ -6,7 +6,7 @@
 <div layout:fragment="content">
     <div class="panel-heading">자유 게시판</div>
     <div class="panel-body">
-        <form id="f1">
+        <form id="f1" th:action="@{/}">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <div class="form-group">
                 <label>글번호</label> <input class="form-control" name="bno" th:value="${vo.bno}" readonly="readonly"/>
@@ -39,7 +39,7 @@
     <div class="pull-right">
         <a href="#" class="btn btn-warning modbtn">수정하기</a>
         <a href="#" class="btn btn-danger delbtn">삭제하기</a>
-        <a href="@{list(page=${pageVO.page}, size=${pageVO.size},type=${pageVO.type},keyword=${pageVO.keyword},bno=${vo.bno})}" class="btn btn-primary">취소하기</a>
+        <a th:href="@{list(page=${pageVO.page}, size=${pageVO.size},type=${pageVO.type},keyword=${pageVO.keyword},bno=${vo.bno})}" class="btn btn-primary">취소하기</a>
     </div>
 </div>
 

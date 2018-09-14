@@ -4,7 +4,8 @@
 <!------ Include the above in your HEAD tag ---------->
 
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -35,12 +36,11 @@
 
                 </div>
                 <p>
-                    <label for="remember-me">Remember-Me</label> <input type="checkbox" id="remember-me"
+                    <label for="text">Remember-Me</label> <input type="checkbox" id="remember-me"
                                                                         name="remember-me"/>
                 </p>
-                <p>
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                </p>
+
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-primary">Login</button>
 
             </form>

@@ -8,6 +8,7 @@ import com.fishing.fishboard.persistence.MemberRepository;
 import com.fishing.fishboard.vo.PageVO;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,12 +51,14 @@ public class JohangController {
         return "/johang/johang";
     }
 
+    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
     @GetMapping("/register")
     public String register(Model model) {
 
         return "/johang/register";
     }
 
+    @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
     @PostMapping("/register")
     public String registerp(String title, String content, HttpServletResponse response
                                 , @RequestParam MultipartFile[] fileUpload, Principal principal) throws Exception {
