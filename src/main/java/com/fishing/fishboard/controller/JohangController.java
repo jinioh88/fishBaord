@@ -7,10 +7,13 @@ import com.fishing.fishboard.persistence.JohangRepository;
 import com.fishing.fishboard.persistence.MemberRepository;
 import com.fishing.fishboard.vo.PageMaker;
 import com.fishing.fishboard.vo.PageVO;
+import com.fishing.fishboard.vo.PageVO2;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +44,7 @@ public class JohangController {
     MemberRepository memberRepository;
 
     @GetMapping("/list")
-    public String board(@ModelAttribute("pageVO") PageVO vo, Model model) {
+    public String board(@ModelAttribute("pageVO") PageVO2 vo, Model model) {
 //        List<JohangBoard> list = repository.findAll();
 //        for(int i=0;i<list.size();i++) {
 //            System.out.println(list.get(i).getMember().getUname());
@@ -51,10 +54,8 @@ public class JohangController {
 //
 //        return "/johang/johang";
         Pageable page = vo.makePageable(0,"jno");
+//        Pageable page = PageRequest.of(0,20, Sort.Direction.DESC,"jno");
         Page<JohangBoard> result = repository.findAll(repository.makePredicate(null,null),page);
-        System.out.println("-=======================================");
-        System.out.println(page);
-        System.out.println(page.getPageNumber());
         model.addAttribute("result",new PageMaker(result));
         return "/johang/johang";
     }
