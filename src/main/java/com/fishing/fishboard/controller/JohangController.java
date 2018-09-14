@@ -5,9 +5,12 @@ import com.fishing.fishboard.domain.Member;
 import com.fishing.fishboard.persistence.ImageVORepository;
 import com.fishing.fishboard.persistence.JohangRepository;
 import com.fishing.fishboard.persistence.MemberRepository;
+import com.fishing.fishboard.vo.PageMaker;
 import com.fishing.fishboard.vo.PageVO;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -41,13 +42,20 @@ public class JohangController {
 
     @GetMapping("/list")
     public String board(@ModelAttribute("pageVO") PageVO vo, Model model) {
-        List<JohangBoard> list = repository.findAll();
-        for(int i=0;i<list.size();i++) {
-            System.out.println(list.get(i).getMember().getUname());
-        }
-        model.addAttribute("list",list);
-
-
+//        List<JohangBoard> list = repository.findAll();
+//        for(int i=0;i<list.size();i++) {
+//            System.out.println(list.get(i).getMember().getUname());
+//        }
+//        model.addAttribute("list",list);
+//
+//
+//        return "/johang/johang";
+        Pageable page = vo.makePageable(0,"jno");
+        Page<JohangBoard> result = repository.findAll(repository.makePredicate(null,null),page);
+        System.out.println("-=======================================");
+        System.out.println(page);
+        System.out.println(page.getPageNumber());
+        model.addAttribute("result",new PageMaker(result));
         return "/johang/johang";
     }
 

@@ -62,16 +62,16 @@
 
     <div th:class="row" >
         <!--<div class="col-lg-4 col-sm-6 portfolio-item" >-->
-            <div class="card" style="width: 30%;" th:each="list:${list}">
+            <div class="card" style="width: 30%;" th:each="result:${result.result}">
                 <div style="text-align: right; margin: 5px">
                 <a href="#"><img class="card-img-top" src="/image01.jpg" alt=""></a>
                     <!--<a href="#"><img class="card-img-top" th:src="@{${'/'+list.imagevo.filename+'.jpg'}}" alt=""></a>-->
 
                     <div class="card-body">
                     <h4 class="card-title">
-                        <a href="#">[[${list.title}]]</a>
+                        <a href="#">[[${result.title}]]</a>
                     </h4>
-                    <p th:class="card-text" >[[${list.content}]]<br>등록일 : [[${list.regdate}]]<br>작성자 : [[${list.member.uname}]]<br>추천수 : [[${list.likes}]]</p>
+                    <p th:class="card-text" >[[${result.content}]]<br>등록일 : [[${result.regdate}]]<br>작성자 : [[${result.member.uname}]]<br>추천수 : [[${result.likes}]]</p>
                 </div>
 
             </div>
@@ -80,29 +80,24 @@
     <!-- /.row -->
 
     <!-- Pagination -->
-    <ul class="pagination justify-content-center">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                <span class="sr-only">Previous</span>
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">1</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">2</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">3</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-                <span class="sr-only">Next</span>
-            </a>
-        </li>
-    </ul>
+    <nav>
+        <div>
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:if="${result.prevPage}"><a
+                        th:href="${result.prevPage.pageNumber} + 1">PREV
+                    [[${result.prevPage.pageNumber} + 1]]</a></li>
+
+                <li class="page-item"
+                    th:classappend="${p.pageNumber == result.currentPageNum -1}?active: '' "
+                    th:each="p:${result.pageList}"><a
+                        th:href="${p.pageNumber} +1">[[${p.pageNumber} +1]]</a></li>
+
+                <li class="page-item" th:if="${result.nextPage}"><a
+                        th:href="${result.nextPage.pageNumber} + 1">NEXT
+                    [[${result.nextPage.pageNumber} + 1]]</a></li>
+            </ul>
+        </div>
+    </nav>
 
 </div>
 <!-- /.container -->

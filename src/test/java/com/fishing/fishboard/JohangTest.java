@@ -26,9 +26,9 @@ public class JohangTest {
     int n = 1;
     @Test
     public void insertOne(){
-        IntStream.range(1,10).forEach(n->{
+        IntStream.range(1,20).forEach(n->{
             byte[] b = new byte[1024];
-            String ss = "df;lkasdf;lkasdjfl;kasdjflasdkfj";
+            String ss = "df;lkasdf;lkasdjfl;kasdjflasdkfj"+n;
             b = ss.getBytes();
             ImageVO vo = new ImageVO();
             vo.setFilename("image"+n);
