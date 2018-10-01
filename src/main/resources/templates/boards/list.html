@@ -50,7 +50,9 @@
         </div>
 
         <nav>
+
             <div>
+
                 <ul class="pagination">
                     <li class="page-item" th:if="${result.prevPage}"><a
                             th:href="${result.prevPage.pageNumber} + 1">PREV
@@ -67,6 +69,8 @@
                 </ul>
             </div>
         </nav>
+
+
     </div>
 
     <form id='f1' th:action="@{list}" method="get">
@@ -81,7 +85,20 @@
 <!--  end fragment -->
 
 <th:block layout:fragment="script">
+
     <script th:inline="javascript">
+
+        $(window).load(function(){
+
+            var msg = [[${msg}]];
+
+
+            if(msg =='success') {
+                alert("정상적으로 처리되었습니다.");
+                var stateObj = { msg: "" };
+            }
+        });
+
         $(document).ready(function() {
             var formObj = $("#f1");
             $(".pagination a").click(function(e) {
@@ -90,26 +107,30 @@
                 formObj.submit();
             });
 
-            $("#searchBtn").click(function(e){
+            $(".boardLink").click(function(e){
+
                 e.preventDefault();
+
+                var boardNo = $(this).attr("href");
+
+                formObj.attr("action",[[@{'/boards/view'}]]);
+                formObj.append("<input type='hidden' name='bno' value='" + boardNo +"'>" );
+
+                formObj.submit();
+
+            });
+
+            $("#searchBtn").click(function(e){
 
                 var typeStr = $("#searchType").find(":selected").val();
                 var keywordStr = $("#searchKeyword").val();
-                console.log(typeStr,"",keywordStr);
+
+                console.log(typeStr, "" , keywordStr);
 
                 formObj.find("[name='type']").val(typeStr);
                 formObj.find("[name='keyword']").val(keywordStr);
                 formObj.find("[name='page']").val("1");
-                formObj.submit()
-            });
-
-            $(".boardLink").click(function (e) {
-               e.preventDefault();
-               var boardNo = $(this).attr("href");
-
-               formObj.attr("action",[[@{'/boards/view'}]]);
-               formObj.append("<input type='hidden' name = 'bno' value='"+boardNo+"'>");
-               formObj.submit();
+                formObj.submit();
             });
         });
     </script>
