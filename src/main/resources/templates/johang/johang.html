@@ -76,15 +76,12 @@
 
             </div>
         </div>
-    </div>
     <!-- /.row -->
 
     <!-- Pagination -->
     <nav>
-
         <div>
-
-            <ul class="pagination">
+            <ul class="pagination justify-content-center">
                 <li class="page-item" th:if="${result.prevPage}"><a
                         th:href="${result.prevPage.pageNumber} + 1">PREV
                     [[${result.prevPage.pageNumber} + 1]]</a></li>
@@ -100,21 +97,32 @@
             </ul>
         </div>
     </nav>
-
+    </div>
     <form id='f2' th:action="@{list}" method="get">
         <input type='hidden' name='page' th:value=${result.currentPageNum}>
         <input type='hidden' name='size' th:value=${result.currentPage.pageSize}>
         <input type='hidden' name='type' th:value=${pageVO.type}>
         <input type='hidden' name='keyword' th:value=${pageVO.keyword}>
     </form>
-</div></body>
+</div>
+<!-- /.container -->
 
-<!--  end fragment -->
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">시시콜콜 배스낚시</p>
+        <p class="m-0 text-center text-white">운영자 : 오세진</p>
+        <p class="m-0 text-center text-white">연락처 : 010-3555-6703</p>
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<!--<script src="/vendor/jquery/jquery.js"></script>-->
+<!--<script src="/vendor/bootstrap/js/bootstrap.bundle.js"></script>-->
 
 <th:block layout:fragment="script">
-
     <script th:inline="javascript">
-
         $(document).ready(function() {
             var formObj = $("#f2");
             $(".pagination a").click(function(e) {
@@ -123,8 +131,8 @@
                 formObj.submit();
             });
 
+
         });
     </script>
 
 </th:block>
-</html>
