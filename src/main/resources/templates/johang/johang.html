@@ -63,17 +63,17 @@
     <div th:class="row" >
         <!--<div class="col-lg-4 col-sm-6 portfolio-item" >-->
             <div class="card" style="width: 30%;" th:each="result:${result.result}">
+                <div th:each="imageList:${imageList}">
                 <div style="text-align: right; margin: 5px">
-                <a href="#"><img class="card-img-top" src="/image01.jpg" id="esult-image" alt=""></a>
+                <a href="#"><img class="card-img-top" th:src="${imageList.filename}" id="esult-image" alt=""></a>
                     <!--<a href="#"><img class="card-img-top" th:src="@{${'/'+list.imagevo.filename+'.jpg'}}" alt=""></a>-->
-
                     <div class="card-body">
                     <h4 class="card-title">
                         <a href="#">[[${result.title}]]</a>
                     </h4>
                     <p th:class="card-text" >[[${result.content}]]<br>등록일 : [[${result.regdate}]]<br>작성자 : [[${result.member.uname}]]<br>추천수 : [[${result.likes}]]</p>
                 </div>
-
+                </div>
             </div>
         </div>
     <!-- /.row -->

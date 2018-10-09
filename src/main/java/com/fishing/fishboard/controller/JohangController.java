@@ -1,6 +1,7 @@
 package com.fishing.fishboard.controller;
 
 import com.fishing.fishboard.aws.S3Uploader;
+import com.fishing.fishboard.domain.ImageVO;
 import com.fishing.fishboard.domain.JohangBoard;
 import com.fishing.fishboard.domain.Member;
 import com.fishing.fishboard.persistence.ImageVORepository;
@@ -29,7 +30,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -51,14 +54,11 @@ public class JohangController {
 
     @GetMapping("/list")
     public String board(@ModelAttribute("pageVO") PageVO2 vo, Model model) {
-//        List<JohangBoard> list = repository.findAll();
-//        for(int i=0;i<list.size();i++) {
-//            System.out.println(list.get(i).getMember().getUname());
-//        }
-//        model.addAttribute("list",list);
-//
-//
-//        return "/johang/johang";
+        List<ImageVO> imageList = new ArrayList<>();
+        imageList = imageVORepository.findAll();
+        System.out.println(imageList.size());
+        model.addAttribute("imageList",imageList);
+
         Pageable page = vo.makePageable(0,"jno");
 //        Pageable page = PageRequest.of(0,20, Sort.Direction.DESC,"jno");
         Page<JohangBoard> result = repository.findAll(repository.makePredicate(null,null),page);
@@ -91,6 +91,8 @@ public class JohangController {
 
         String saveFileName="";
 
+        String s3Name = s3Uploader.upload(fileUpload, "static");
+
         if(fileUpload!=null && fileUpload.getSize()>0) {
             String formmatedData = baseDir + new SimpleDateFormat("yyyy"+File.separator+"MM"
                     +File.separator+"dd").format(new Date());
@@ -105,7 +107,7 @@ public class JohangController {
                 response.setContentType(file.getContentType());
                 response.setContentLength((int)file.getSize());
 
-                imageVORepository.saveImage(saveFileName);
+                imageVORepository.saveImage(s3Name);
 
                 try(InputStream in = file.getInputStream();
                     FileOutputStream out = new FileOutputStream(saveFileName)){
@@ -120,9 +122,9 @@ public class JohangController {
                 }
 
         }
-        board.setImagevo(imageVORepository.findByFilename(saveFileName));
+        
+        board.setImagevo(imageVORepository.findByFilename(s3Name));
         repository.save(board);
-        s3Uploader.upload(fileUpload, "static");
 
         return "redirect:/johang/list";
     }
