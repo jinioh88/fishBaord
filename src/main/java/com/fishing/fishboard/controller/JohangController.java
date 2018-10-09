@@ -1,5 +1,6 @@
 package com.fishing.fishboard.controller;
 
+import com.fishing.fishboard.aws.S3Uploader;
 import com.fishing.fishboard.domain.JohangBoard;
 import com.fishing.fishboard.domain.Member;
 import com.fishing.fishboard.persistence.ImageVORepository;
@@ -8,6 +9,8 @@ import com.fishing.fishboard.persistence.MemberRepository;
 import com.fishing.fishboard.vo.PageMaker;
 import com.fishing.fishboard.vo.PageVO;
 import com.fishing.fishboard.vo.PageVO2;
+import com.sun.xml.internal.bind.v2.TODO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +34,7 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/johang")
+@RequiredArgsConstructor
 @Log
 public class JohangController {
     @Autowired
@@ -42,6 +46,8 @@ public class JohangController {
 
     @Autowired
     MemberRepository memberRepository;
+
+    private final S3Uploader s3Uploader;
 
     @GetMapping("/list")
     public String board(@ModelAttribute("pageVO") PageVO2 vo, Model model) {
@@ -67,10 +73,11 @@ public class JohangController {
         return "/johang/register";
     }
 
+    // TODO : aws에 올라가는 파일명 수정해야 함.
     @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
     @PostMapping("/register")
     public String registerp(String title, String content, HttpServletResponse response
-                                , @RequestParam MultipartFile[] fileUpload, Principal principal) throws Exception {
+                                , @RequestParam MultipartFile fileUpload, Principal principal) throws Exception {
         JohangBoard board = new JohangBoard();
         board.setTitle(title);
         board.setContent(content);
@@ -84,7 +91,7 @@ public class JohangController {
 
         String saveFileName="";
 
-        if(fileUpload!=null && fileUpload.length>0) {
+        if(fileUpload!=null && fileUpload.getSize()>0) {
             String formmatedData = baseDir + new SimpleDateFormat("yyyy"+File.separator+"MM"
                     +File.separator+"dd").format(new Date());
             File f = new File(formmatedData);
@@ -92,7 +99,7 @@ public class JohangController {
                 f.mkdirs();
             }
 
-            for(MultipartFile file : fileUpload) {
+                MultipartFile file = fileUpload;
                 String uuid = UUID.randomUUID().toString();
                 saveFileName = formmatedData + File.separator + uuid +".jpeg";
                 response.setContentType(file.getContentType());
@@ -111,10 +118,11 @@ public class JohangController {
                 }catch(Exception e){
                     e.getMessage();
                 }
-            }
+
         }
         board.setImagevo(imageVORepository.findByFilename(saveFileName));
         repository.save(board);
+        s3Uploader.upload(fileUpload, "static");
 
         return "redirect:/johang/list";
     }

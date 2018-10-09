@@ -64,7 +64,7 @@
         <!--<div class="col-lg-4 col-sm-6 portfolio-item" >-->
             <div class="card" style="width: 30%;" th:each="result:${result.result}">
                 <div style="text-align: right; margin: 5px">
-                <a href="#"><img class="card-img-top" src="/image01.jpg" alt=""></a>
+                <a href="#"><img class="card-img-top" src="/image01.jpg" id="esult-image" alt=""></a>
                     <!--<a href="#"><img class="card-img-top" th:src="@{${'/'+list.imagevo.filename+'.jpg'}}" alt=""></a>-->
 
                     <div class="card-body">
@@ -120,7 +120,7 @@
 <!-- Bootstrap core JavaScript -->
 <!--<script src="/vendor/jquery/jquery.js"></script>-->
 <!--<script src="/vendor/bootstrap/js/bootstrap.bundle.js"></script>-->
-
+<script src="/js/reply.js"></script>
 <th:block layout:fragment="script">
     <script th:inline="javascript">
         $(document).ready(function() {
