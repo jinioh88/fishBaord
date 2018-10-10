@@ -22,31 +22,31 @@ public class MemberTest {
     @Autowired
     MemberRepository repository;
 
-    @Test
-    public void insertTest() {
-        for(int i=0;i<=10;i++) {
-            Member member = new Member();
-            member.setUid("user"+i);
-            member.setUpw("pw"+i);
-            member.setUname("강태공"+i);
-            member.setUemail("user"+i+"@email.com");
-            member.setUphone("010123123"+i);
-
-            MemberRole role = new MemberRole();
-            if(i<9){
-                role.setRoleName("USER");
-            }else{
-                role.setRoleName("ADMIN");
-            }
-            member.setRoles(Arrays.asList(role));
-
-            repository.save(member);
-        }
-    }
-
-    @Test
-    public void readTest() {
-        Optional<Member> result = repository.findById("user7");
-        result.ifPresent(member -> log.info("member : "+member));
-    }
+//    @Test
+//    public void insertTest() {
+//        for(int i=0;i<=10;i++) {
+//            Member member = new Member();
+//            member.setUid("user"+i);
+//            member.setUpw("pw"+i);
+//            member.setUname("강태공"+i);
+//            member.setUemail("user"+i+"@email.com");
+//            member.setUphone("010123123"+i);
+//
+//            MemberRole role = new MemberRole();
+//            if(i<9){
+//                role.setRoleName("USER");
+//            }else{
+//                role.setRoleName("ADMIN");
+//            }
+//            member.setRoles(Arrays.asList(role));
+//
+//            repository.save(member);
+//        }
+//    }
+//
+//    @Test
+//    public void readTest() {
+//        Optional<Member> result = repository.findById("user7");
+//        result.ifPresent(member -> log.info("member : "+member));
+//    }
 }

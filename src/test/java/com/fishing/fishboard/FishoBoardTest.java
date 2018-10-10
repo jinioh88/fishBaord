@@ -36,25 +36,25 @@ public class FishoBoardTest {
         });
     }
 
-    @Test
-    public void testList() {
-        Pageable pageable = PageRequest.of(0,20,Sort.Direction.DESC,"bno");
-        Page<FishBoard> result = repository.findAll(repository.makePredicate(null,null),pageable);
-        log.info("page : "+result.getPageable());
-        log.info("------");
-        result.getContent().forEach(board->{
-            log.info(""+board);
-        });
-    }
-
-    @Test
-    public void testList2() {
-        Pageable pageable = PageRequest.of(0,10,Sort.Direction.DESC,"bno");
-        Page<FishBoard> result = repository.findAll(repository.makePredicate("t","10"),pageable);
-        log.info("page : "+result.getPageable());
-        log.info("------");
-        result.getContent().forEach(board->{
-            log.info(""+board);
-        });
-    }
+//    @Test
+//    public void testList() {
+//        Pageable pageable = PageRequest.of(0,20,Sort.Direction.DESC,"bno");
+//        Page<FishBoard> result = repository.findAll(repository.makePredicate(null,null),pageable);
+//        log.info("page : "+result.getPageable());
+//        log.info("------");
+//        result.getContent().forEach(board->{
+//            log.info(""+board);
+//        });
+//    }
+//
+//    @Test
+//    public void testList2() {
+//        Pageable pageable = PageRequest.of(0,10,Sort.Direction.DESC,"bno");
+//        Page<FishBoard> result = repository.findAll(repository.makePredicate("t","10"),pageable);
+//        log.info("page : "+result.getPageable());
+//        log.info("------");
+//        result.getContent().forEach(board->{
+//            log.info(""+board);
+//        });
+//    }
 }

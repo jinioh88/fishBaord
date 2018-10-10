@@ -8,16 +8,12 @@ import com.fishing.fishboard.persistence.ImageVORepository;
 import com.fishing.fishboard.persistence.JohangRepository;
 import com.fishing.fishboard.persistence.MemberRepository;
 import com.fishing.fishboard.vo.PageMaker;
-import com.fishing.fishboard.vo.PageVO;
 import com.fishing.fishboard.vo.PageVO2;
-import com.sun.xml.internal.bind.v2.TODO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,7 +69,6 @@ public class JohangController {
         return "/johang/register";
     }
 
-    // TODO : aws에 올라가는 파일명 수정해야 함.
     @Secured(value = {"ROLE_USER","ROLE_ADMIN"})
     @PostMapping("/register")
     public String registerp(String title, String content, HttpServletResponse response

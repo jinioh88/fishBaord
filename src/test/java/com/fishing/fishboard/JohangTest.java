@@ -50,13 +50,13 @@ public class JohangTest {
         });
     }
 
-    @Test
-    public void list() {
-        Pageable pageable = PageRequest.of(0,20, Sort.Direction.DESC,"jno");
-        Page<JohangBoard> result = johangRepository.findAll(johangRepository.makePredicate(null,null),pageable);
-        log.info("======================================");
-        result.getContent().forEach(board->{
-            log.info(""+board);
-        });
-    }
+//    @Test
+//    public void list() {
+//        Pageable pageable = PageRequest.of(0,20, Sort.Direction.DESC,"jno");
+//        Page<JohangBoard> result = johangRepository.findAll(johangRepository.makePredicate(null,null),pageable);
+//        log.info("======================================");
+//        result.getContent().forEach(board->{
+//            log.info(""+board);
+//        });
+//    }
 }
