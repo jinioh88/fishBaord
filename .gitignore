@@ -3,6 +3,7 @@
 
 .idea
 /target
+aws.yml
 
 ### STS ###
 .apt_generated
